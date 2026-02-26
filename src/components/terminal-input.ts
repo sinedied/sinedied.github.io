@@ -272,6 +272,19 @@ export class TerminalInput extends LitElement {
       return;
     }
 
+    // ── clear ──
+    if (cmd === 'clear') {
+      this._output = '';
+      this._hasError = false;
+      return;
+    }
+
+    // ── reboot ──
+    if (cmd === 'reboot') {
+      this._crtReboot();
+      return;
+    }
+
     // ── exit ──
     if (cmd === 'exit') {
       this._output = 'There is no escape.';
@@ -299,5 +312,95 @@ export class TerminalInput extends LitElement {
       document.body.style.background = '#000';
       (terminalWindow as HTMLElement).style.display = 'none';
     }, { once: true });
+  }
+
+  /** Reboot: shutdown → pause → macOS boot sound → power on animation */
+  private _crtReboot() {
+    const terminalWindow = document.querySelector('.terminal-window') as HTMLElement;
+    if (!terminalWindow) return;
+
+    document.documentElement.classList.remove('crt-skip');
+    terminalWindow.classList.add('crt-shutdown');
+
+    terminalWindow.addEventListener('animationend', (e) => {
+      if ((e as AnimationEvent).animationName !== 'crtOff') return;
+
+      // Black screen
+      terminalWindow.style.display = 'none';
+      document.body.style.background = '#000';
+
+      // Wait, then play boot sound and power on
+      setTimeout(() => {
+        // Synthesize a Mac-like boot chime with Web Audio API
+        this._playBootChime();
+
+        // Restore and replay CRT on animation
+        terminalWindow.classList.remove('crt-shutdown');
+        terminalWindow.style.display = '';
+        document.body.style.background = '';
+
+        // Re-trigger crt-on animation
+        terminalWindow.classList.remove('crt-on');
+        // Force reflow to restart animation
+        void terminalWindow.offsetWidth;
+        terminalWindow.classList.add('crt-on');
+
+        // Re-show the glow overlay
+        const glow = terminalWindow.querySelector('.crt-glow') as HTMLElement;
+        if (glow) {
+          glow.style.display = '';
+          glow.style.animation = 'none';
+          void glow.offsetWidth;
+          glow.style.animation = '';
+        }
+      }, 1000);
+    }, { once: true });
+  }
+
+  /** Synthesize a Mac-like boot chime using the Web Audio API. */
+  private _playBootChime() {
+    try {
+      const ctx = new AudioContext();
+      const now = ctx.currentTime;
+      const duration = 4;
+
+      // F# major chord — the classic Mac startup chime
+      const notes = [
+        { freq: 185.00, vol: 0.15 },  // F#3
+        { freq: 233.08, vol: 0.12 },  // A#3
+        { freq: 277.18, vol: 0.12 },  // C#4
+        { freq: 369.99, vol: 0.10 },  // F#4
+      ];
+
+      for (const { freq, vol } of notes) {
+        // Fundamental
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration);
+
+        // 2nd harmonic (gentle, for warmth)
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.value = freq * 2;
+        gain2.gain.setValueAtTime(vol * 0.15, now);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + duration * 0.6);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(now);
+        osc2.stop(now + duration * 0.6);
+      }
+
+      setTimeout(() => ctx.close(), (duration + 0.5) * 1000);
+    } catch {
+      // Web Audio API not available
+    }
   }
 }
