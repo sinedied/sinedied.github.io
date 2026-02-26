@@ -8,7 +8,7 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 
 <BaseLayout>
   <div class="home-content fade-in fade-in--delay-3">
-    <div class="section-header">About me</div>
+    <div class="section-header">Hello, world!</div>
 
     {/* Info block */}
     <div class="about-row">
@@ -44,6 +44,12 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
       </div>
     </div>
 
+    <div class="intro-blurb">
+      <p>Coder by trade, tinkerer by nature. If it can be built, I'll probably try.</p>
+      <p>I craft open-source tools, mass-produce NPM packages, and occasionally escape the terminal to produce electronic music, shred some powder, or hike a mountain.</p>
+      <p>Based in Grenoble, France. Surrounded by the Alps and fueled by good cheese.</p>
+    </div>
+
     {/* Social links */}
     <div class="social-section">
       <div class="section-header">Socials</div>
@@ -68,6 +74,16 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 <style>
   .home-content {
     margin-top: var(--space-md);
+  }
+
+  /* ── Intro blurb ────────────────────────── */
+  .intro-blurb {
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  .intro-blurb p {
+    margin: 0 0 var(--space-xs) 0;
   }
 
   /* ── Info ───────────────────────────────── */
@@ -155,6 +171,10 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
       align-items: center;
     }
 
+    .info {
+      width: 100%;
+    }
+
     .profile-pic {
       width: 80px;
       height: 80px;
@@ -162,12 +182,10 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 
     .info-key {
       min-width: auto;
-      display: block;
     }
 
     .social-links {
-      flex-direction: column;
-      gap: var(--space-xs);
+      gap: var(--space-xs) var(--space-sm);
     }
   }
 </style>

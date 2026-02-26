@@ -426,7 +426,7 @@ export class TerminalInput extends LitElement {
     try {
       const ctx = new AudioContext();
       const now = ctx.currentTime;
-      const duration = 4;
+      const duration = 2;
 
       // F# major chord — the classic Mac startup chime
       const notes = [
