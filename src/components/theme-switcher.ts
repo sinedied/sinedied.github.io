@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
+
 
 /**
  * Theme switcher component — selects between terminal themes.
@@ -116,8 +117,13 @@ export class ThemeSwitcher extends LitElement {
       width: 100%;
     }
 
-    .dropdown-menu button:not(:last-child) {
-      border-bottom: 1px solid var(--term-border, #333);
+    .dropdown-menu button + button {
+      box-shadow: 0 -1px 0 var(--term-border, #333);
+    }
+
+    .dropdown-menu button.active {
+      position: relative;
+      z-index: 1;
     }
 
     @media (max-width: 640px) {
@@ -134,7 +140,7 @@ export class ThemeSwitcher extends LitElement {
     { id: 'cyberpunk-neon', label: 'Neon' },
   ] as const;
 
-  @property({ type: String }) current = 'green-phosphor';
+  @state() current = 'green-phosphor';
   @state() private _dropdownOpen = false;
 
   private _closeHandler = (e: Event) => {
@@ -146,15 +152,25 @@ export class ThemeSwitcher extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    const stored = localStorage.getItem('theme');
-    if (stored) {
-      this.current = stored;
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.current = prefersDark ? 'green-phosphor' : 'modern-minimal-light';
-    }
-    this._applyTheme(this.current);
     document.addEventListener('click', this._closeHandler);
+  }
+
+  firstUpdated() {
+    // Read the theme from the DOM attribute (already set by the blocking <head> script)
+    // This runs after Lit hydration is complete, so state updates will trigger re-renders.
+    const applied = document.documentElement.getAttribute('data-theme');
+    if (applied) {
+      this.current = applied;
+    } else {
+      const stored = localStorage.getItem('theme');
+      if (stored) {
+        this.current = stored;
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        this.current = prefersDark ? 'green-phosphor' : 'modern-minimal-light';
+      }
+      this._applyTheme(this.current);
+    }
   }
 
   disconnectedCallback() {
@@ -166,7 +182,6 @@ export class ThemeSwitcher extends LitElement {
     document.documentElement.setAttribute('data-theme', themeId);
     localStorage.setItem('theme', themeId);
     this.current = themeId;
-    this.requestUpdate();
   }
 
   private _handleClick(themeId: string) {
@@ -201,6 +216,11 @@ export class ThemeSwitcher extends LitElement {
     return theme?.label ?? 'Theme';
   }
 
+  private _isActive(themeId: string): boolean {
+    return this.current === themeId ||
+      (themeId === 'modern-minimal' && this.current === 'modern-minimal-light');
+  }
+
   render() {
     return html`
       <span class="label">theme:</span>
@@ -209,24 +229,24 @@ export class ThemeSwitcher extends LitElement {
           (t) => html`
             <button
               role="radio"
-              aria-checked=${this.current === t.id || (t.id === 'modern-minimal' && this.current === 'modern-minimal-light')}
-              class=${this.current === t.id || (t.id === 'modern-minimal' && this.current === 'modern-minimal-light') ? 'active' : ''}
+              aria-checked=${String(this._isActive(t.id))}
+              class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleClick(t.id)}
             >${t.label}</button>
           `
         )}
       </div>
       <button
-        class="dropdown-toggle ${this._dropdownOpen ? 'open' : ''}"
+        class="dropdown-toggle${this._dropdownOpen ? ' open' : ''}"
         @click=${this._toggleDropdown}
         aria-haspopup="true"
-        aria-expanded=${this._dropdownOpen}
+        aria-expanded=${String(this._dropdownOpen)}
       >${this._currentLabel} <span class="arrow">▼</span></button>
-      <div class="dropdown-menu ${this._dropdownOpen ? 'open' : ''}">
+      <div class="dropdown-menu${this._dropdownOpen ? ' open' : ''}">
         ${ThemeSwitcher.themes.map(
           (t) => html`
             <button
-              class=${this.current === t.id || (t.id === 'modern-minimal' && this.current === 'modern-minimal-light') ? 'active' : ''}
+              class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleDropdownClick(t.id)}
             >${t.label}</button>
           `
