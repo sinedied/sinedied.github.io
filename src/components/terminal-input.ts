@@ -132,6 +132,7 @@ export class TerminalInput extends LitElement {
     'home': '/',
     'projects': '/projects/',
     'events': '/events/',
+    'music': '/music/',
     'man': '/help/',
     'help': '/help/',
   };
@@ -252,7 +253,7 @@ export class TerminalInput extends LitElement {
 
     // ── ls ──
     if (cmd === 'ls') {
-      this._output = 'about  projects  events';
+      this._output = 'about  projects  events  music';
       return;
     }
 
