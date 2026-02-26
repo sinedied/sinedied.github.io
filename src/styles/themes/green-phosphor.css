@@ -143,6 +143,11 @@
   background: rgba(0, 255, 65, 0.35);
 }
 
+/* ── Images: monochrome green phosphor tint ── */
+[data-theme="green-phosphor"] img {
+  filter: sepia(1) saturate(3) hue-rotate(80deg) brightness(0.8);
+}
+
 /* ── Reduced motion: kill flicker & glow pulse ── */
 @media (prefers-reduced-motion: reduce) {
   [data-theme="green-phosphor"] .terminal-window,
