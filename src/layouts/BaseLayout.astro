@@ -26,6 +26,15 @@ const navItems = [
   { href: '/projects/', label: 'projects', path: '/projects' },
   { href: '/events/', label: 'events', path: '/events' },
 ];
+
+const pathMap: Record<string, string> = {
+  '/': '~',
+  '/projects/': '~/projects',
+  '/projects': '~/projects',
+  '/events/': '~/events',
+  '/events': '~/events',
+};
+const termPath = pathMap[currentPath] || '~';
 ---
 
 <html lang="en">
@@ -53,6 +62,15 @@ const navItems = [
         } else {
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           document.documentElement.setAttribute('data-theme', prefersDark ? 'green-phosphor' : 'modern-minimal-light');
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        if (sessionStorage.getItem('crt-done')) {
+          document.documentElement.classList.add('crt-skip');
+        } else {
+          sessionStorage.setItem('crt-done', '1');
         }
       })();
     </script>
@@ -91,7 +109,10 @@ const navItems = [
 
       {/* Footer */}
       <footer class="terminal-footer">
-        <span class="text-dim">visitor@sinedied:~$ <span class="cursor"></span></span>
+        <span class="footer-prompt">
+          <span class="prompt-user">visitor</span><span class="text-dim">@</span><span class="prompt-host">sinedied</span><span class="prompt-path">:{termPath}$</span>
+        </span>
+        <span class="cursor"></span>
       </footer>
     </div>
   </body>
@@ -102,5 +123,19 @@ const navItems = [
     padding: 0.75rem var(--terminal-padding);
     border-top: 1px solid var(--term-border);
     font-size: var(--font-size-sm);
+  }
+
+  .prompt-user {
+    color: var(--term-fg);
+    font-weight: 700;
+  }
+
+  .prompt-host {
+    color: var(--term-accent);
+    font-weight: 700;
+  }
+
+  .prompt-path {
+    color: var(--term-accent);
   }
 </style>

@@ -6,9 +6,9 @@
 export const siteConfig = {
   name: 'Yohan Lasorsa',
   handle: 'sinedied',
-  role: 'Developer Advocate',
+  role: 'Principal Developer Advocate',
   company: 'Microsoft',
-  bio: 'Open source, DIY, IoT, Mobile, Everything JavaScript',
+  bio: 'Open Source, DIY, Psytrance, Synths & Snow',
   location: 'France',
 
   social: {
@@ -21,8 +21,8 @@ export const siteConfig = {
   },
 
   meta: {
-    title: 'Yohan Lasorsa — Developer Advocate',
-    description: 'Personal website of Yohan Lasorsa, Developer Advocate at Microsoft. Open source, JavaScript, AI, Cloud, and more.',
+    title: 'Yohan Lasorsa — Principal Developer Advocate',
+    description: 'Personal website of Yohan Lasorsa, Principal Developer Advocate at Microsoft. Open source, JavaScript, AI, Cloud, and more.',
     url: 'https://sinedied.github.io',
   },
 } as const;

@@ -8,58 +8,35 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 
 <BaseLayout>
   <div class="home-content fade-in fade-in--delay-3">
-    {/* Neofetch-style display */}
-    <div class="neofetch">
-      <pre class="ascii-art" aria-hidden="true">{`
-   ┌─────────────────────┐
-   │  ┌──┐  ┌──┐  ┌──┐  │
-   │  │▓▓│  │▓▓│  │▓▓│  │
-   │  └──┘  └──┘  └──┘  │
-   │   ┌──────────────┐  │
-   │   │ > _          │  │
-   │   │              │  │
-   │   └──────────────┘  │
-   └─────────────────────┘
-      `}</pre>
-      <div class="info">
-        <div class="info-line">
-          <span class="info-label">visitor</span><span class="text-dim">@</span><span class="text-accent">sinedied</span>
-        </div>
-        <div class="info-separator">──────────────────────</div>
-        <div class="info-line">
-          <span class="info-key">Name:</span>
-          <span>{siteConfig.name}</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">Role:</span>
-          <span>{siteConfig.role} @ {siteConfig.company}</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">Focus:</span>
-          <span>JavaScript, AI, Cloud, Open Source</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">OS:</span>
-          <span>Web Platform</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">Shell:</span>
-          <span>bash 5.2</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">Langs:</span>
-          <span>TypeScript, JavaScript, Python, C#</span>
-        </div>
-        <div class="info-line">
-          <span class="info-key">Interests:</span>
-          <span>{siteConfig.bio}</span>
-        </div>
+    <div class="section-header">About me</div>
+
+    {/* Info block */}
+    <div class="info">
+      <div class="info-line">
+        <span class="info-key">Name:</span>
+        <span>{siteConfig.name}</span>
+      </div>
+      <div class="info-line">
+        <span class="info-key">Role:</span>
+        <span>{siteConfig.role} @ {siteConfig.company}</span>
+      </div>
+      <div class="info-line">
+        <span class="info-key">Focus:</span>
+        <span>JavaScript, AI, Cloud, Open Source</span>
+      </div>
+      <div class="info-line">
+        <span class="info-key">Languages:</span>
+        <span>TypeScript/JavaScript, Python, C#, C/C++</span>
+      </div>
+      <div class="info-line">
+        <span class="info-key">Interests:</span>
+        <span>{siteConfig.bio}</span>
       </div>
     </div>
 
     {/* Social links */}
     <div class="social-section">
-      <div class="section-header">Links</div>
+      <div class="section-header">Socials</div>
       <div class="social-links">
         {socialEntries.map(([key, url]) => (
           <a
@@ -69,8 +46,6 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
             rel="noopener noreferrer"
             aria-label={key}
           >
-            <span class="prompt-symbol">$</span>
-            <span class="text-dim">open</span>
             <span class="social-icon" set:html={socialIcons[key]}></span>
             <span class="social-name">{key}</span>
           </a>
@@ -85,34 +60,13 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
     margin-top: var(--space-md);
   }
 
-  /* ── Neofetch ──────────────────────────── */
-  .neofetch {
-    display: flex;
-    gap: var(--space-xl);
-    align-items: flex-start;
-    margin-bottom: var(--space-2xl);
-  }
-
-  .ascii-art {
-    color: var(--term-accent);
-    font-size: var(--font-size-sm);
-    line-height: 1.3;
-    flex-shrink: 0;
-    user-select: none;
-  }
-
+  /* ── Info ───────────────────────────────── */
   .info {
-    flex: 1;
-    min-width: 0;
+    margin-bottom: var(--space-2xl);
   }
 
   .info-line {
     line-height: 1.7;
-  }
-
-  .info-label {
-    color: var(--term-fg);
-    font-weight: 700;
   }
 
   .info-key {
@@ -123,11 +77,6 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
     display: inline-block;
   }
 
-  .info-separator {
-    color: var(--term-border);
-    margin: var(--space-xs) 0;
-  }
-
   /* ── Social Links ──────────────────────── */
   .social-section {
     margin-top: var(--space-xl);
@@ -135,14 +84,15 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 
   .social-links {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
   }
 
   .social-link {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     padding: var(--space-xs) 0;
     color: var(--term-fg);
     text-decoration: none;
@@ -175,25 +125,16 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
     text-decoration-color: var(--term-accent);
   }
 
-  .prompt-symbol {
-    color: var(--term-accent);
-    font-weight: 700;
-  }
-
   /* ── Responsive ────────────────────────── */
   @media (max-width: 640px) {
-    .neofetch {
-      flex-direction: column;
-      gap: var(--space-md);
-    }
-
-    .ascii-art {
-      font-size: var(--font-size-xs);
-    }
-
     .info-key {
       min-width: auto;
       display: block;
+    }
+
+    .social-links {
+      flex-direction: column;
+      gap: var(--space-xs);
     }
   }
 </style>

@@ -265,6 +265,18 @@
   border-radius: 2px;
 }
 
+/* ── Skip CRT on subsequent navigations ─────────────── */
+.crt-skip .crt-on {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.crt-skip .crt-glow {
+  display: none !important;
+}
+
 /* ── Reduced Motion Override ────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .typing-line,

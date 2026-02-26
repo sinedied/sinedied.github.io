@@ -4,6 +4,7 @@ import lit from '@astrojs/lit';
 export default defineConfig({
   site: 'https://sinedied.github.io',
   output: 'static',
+  scopedStyleStrategy: 'class',
   integrations: [lit()],
   vite: {
     ssr: {

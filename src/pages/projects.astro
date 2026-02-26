@@ -10,13 +10,6 @@ const legacyProjects = projects.filter((p) => p.section === 'legacy');
 ---
 
 <BaseLayout title="Projects — Yohan Lasorsa" description="Open source projects by Yohan Lasorsa">
-  <div class="prompt-line fade-in">
-    <span class="prompt">
-      <span class="prompt-user">visitor</span><span class="text-dim">@</span><span class="prompt-path">sinedied</span><span class="prompt-symbol">:~/projects$</span>
-    </span>
-    <TypingText client:load text="ls -la --sort=stars" speed={35} hide-cursor-on-done />
-  </div>
-
   <div class="projects-content fade-in fade-in--delay-3">
     {/* Active projects */}
     <div class="section-header">Active</div>
@@ -64,11 +57,6 @@ const legacyProjects = projects.filter((p) => p.section === 'legacy');
 </BaseLayout>
 
 <style>
-  .prompt-line {
-    margin-bottom: var(--space-lg);
-    font-size: var(--font-size-md);
-  }
-
   .projects-content {
     margin-top: var(--space-md);
   }
