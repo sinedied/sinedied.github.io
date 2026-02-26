@@ -1,48 +1,45 @@
 # ═══════════════════════════════════════════════════════
 # Projects — GitHub repositories
-# Add repos as owner/name slugs. Stars and last commit
-# are fetched from the GitHub API at build time.
-# You can optionally override the description field.
+# Add repos as owner/name slugs. Stars, description and
+# last commit are fetched from the GitHub API at build.
 # ═══════════════════════════════════════════════════════
 
 active:
-  - repo: sinedied/backslide
-  - repo: sinedied/smoke
-  - repo: sinedied/hads
-  - repo: sinedied/run-on-output
-  - repo: sinedied/grumpydev-mcp
-  - repo: sinedied/devto-cli
-  - repo: sinedied/imapforward
-  - repo: sinedied/freevibes
-  - repo: sinedied/kanbrawl
-  - repo: sinedied/semantic-release-npm-github
-  - repo: sinedied/amv
-  - repo: sinedied/comic-tools
-  - repo: sinedied/nanolive-setup
-  - repo: sinedied/lantern-vscode-extension
-  - repo: sinedied/run-on-output
-  - repo: sinedied/vscode-win-xp-theme
-  - repo: sinedied/dmx-hue
-  - repo: sinedied/mini-scraper
-  - repo: sinedied/grumpydev-mcp
-  - repo: sinedied/esp-led-timer
-  - repo: sinedied/svelte-web-components-template
-  - repo: sinedied/publish-devto
-  - repo: sinedied/swag-demo
-  - repo: sinedied/fuzz-run
-  - repo: sinedied/nano-gateway
-  - repo: sinedied/pi-midi-host
-  - repo: sinedied/ystats
+  - sinedied/backslide
+  - sinedied/smoke
+  - sinedied/hads
+  - sinedied/run-on-output
+  - sinedied/grumpydev-mcp
+  - sinedied/devto-cli
+  - sinedied/imapforward
+  - sinedied/freevibes
+  - sinedied/kanbrawl
+  - sinedied/semantic-release-npm-github
+  - sinedied/amv
+  - sinedied/comic-tools
+  - sinedied/nanolive-setup
+  - sinedied/lantern-vscode-extension
+  - sinedied/vscode-win-xp-theme
+  - sinedied/dmx-hue
+  - sinedied/mini-scraper
+  - sinedied/esp-led-timer
+  - sinedied/svelte-web-components-template
+  - sinedied/publish-devto
+  - sinedied/swag-demo
+  - sinedied/fuzz-run
+  - sinedied/nano-gateway
+  - sinedied/pi-midi-host
+  - sinedied/ystats
 
 legacy:
-  - repo: sinedied/ngx-foldable
-  - repo: sinedied/ollamazure
-  - repo: sinedied/azure-checkin
-  - repo: sinedied/azd-infra
-  - repo: sinedied/cxa-track
-  - repo: sinedied/teams-angular
-  - repo: sinedied/ng-lite-todo
-  - repo: sinedied/ng-lite-starter
-  - repo: sinedied/surface-duo-photo-gallery
-  - repo: sinedied/hadra-trance-festival
-  - repo: sinedied/catfacts
+  - sinedied/ngx-foldable
+  - sinedied/ollamazure
+  - sinedied/azure-checkin
+  - sinedied/azd-infra
+  - sinedied/cxa-track
+  - sinedied/teams-angular
+  - sinedied/ng-lite-todo
+  - sinedied/ng-lite-starter
+  - sinedied/surface-duo-photo-gallery
+  - sinedied/hadra-trance-festival
+  - sinedied/catfacts

@@ -6,14 +6,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
-export interface RepoEntry {
-  repo: string;
-  description?: string;
-}
-
 export interface ProjectsData {
-  active: RepoEntry[];
-  legacy: RepoEntry[];
+  active: string[];
+  legacy: string[];
 }
 
 export interface RepoInfo {
@@ -118,17 +113,17 @@ export async function getProjectsWithGitHubData(): Promise<RepoInfo[]> {
   const data = loadProjectsYaml();
   const results: RepoInfo[] = [];
 
-  const fetchAll = async (entries: RepoEntry[], section: 'active' | 'legacy') => {
-    const promises = entries.map(async (entry) => {
-      const api = await fetchRepo(entry.repo);
-      const [, name] = entry.repo.split('/');
+  const fetchAll = async (slugs: string[], section: 'active' | 'legacy') => {
+    const promises = slugs.map(async (slug) => {
+      const api = await fetchRepo(slug);
+      const [, name] = slug.split('/');
       results.push({
-        slug: entry.repo,
-        name: name ?? entry.repo,
-        description: replaceEmojiShortcodes(entry.description ?? api?.description ?? 'No description available'),
+        slug,
+        name: name ?? slug,
+        description: replaceEmojiShortcodes(api?.description ?? 'No description available'),
         stars: api?.stargazers_count ?? 0,
         lastCommit: api?.pushed_at ?? new Date().toISOString(),
-        url: api?.html_url ?? `https://github.com/${entry.repo}`,
+        url: api?.html_url ?? `https://github.com/${slug}`,
         language: api?.language ?? null,
         section,
       });
