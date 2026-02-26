@@ -28,9 +28,9 @@ export class ThemeSwitcher extends LitElement {
       display: inline-flex;
       gap: 4px;
       padding: 2px;
-      border: 1px solid var(--term-border, #333);
+      border: none;
       border-radius: 4px;
-      background: var(--term-surface, #111);
+      background: none;
     }
 
     button {
