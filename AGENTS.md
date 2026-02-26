@@ -36,8 +36,9 @@ public/               # Static assets (.nojekyll)
 
 ## Constraints and Requirements
 
+- Astro uses SSR (server-side rendering) with hydration for Lit components via `@astrojs/lit`. Components are first rendered on the server as static HTML (using Lit's SSR support), then hydrated on the client. This means component code runs in both environments: be aware that browser APIs (e.g., `window`, `document`, `localStorage`) are not available during SSR and must be guarded (e.g., check in lifecycle callbacks like `connectedCallback` or `firstUpdated`, not in constructors or initializers)
 - Lit components must be imported with PascalCase named imports in Astro pages (e.g., `import { ThemeSwitcher } from '../components/theme-switcher.ts'`) and used as `<ThemeSwitcher client:load />` for Astro's Lit SSR renderer to match them
-- Components use `client:load` directive for hydration
+- Components use `client:load` directive for hydration, which tells Astro to SSR the component and then hydrate it on the client as soon as the page loads
 - The `tsconfig.json` uses `experimentalDecorators: true` and `useDefineForClassFields: false` — do NOT switch to TC39 decorators
 - All CSS colors use custom properties defined in `src/styles/base.css` and overridden by theme files in `src/styles/themes/`
 - All animations must respect `prefers-reduced-motion: reduce`
