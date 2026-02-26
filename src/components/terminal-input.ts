@@ -16,6 +16,7 @@ export class TerminalInput extends LitElement {
       font-family: inherit;
       font-size: inherit;
       line-height: 1.6;
+      cursor: text;
     }
 
     .prompt {
@@ -56,8 +57,8 @@ export class TerminalInput extends LitElement {
     }
 
     input {
-      flex: 1;
-      min-width: 0;
+      width: 0;
+      max-width: 100%;
       background: none;
       border: none;
       outline: none;
@@ -67,7 +68,12 @@ export class TerminalInput extends LitElement {
       line-height: inherit;
       padding: 0;
       margin: 0;
-      caret-color: var(--term-fg);
+      caret-color: transparent;
+    }
+
+    .input-fill {
+      flex: 1;
+      min-width: 0;
     }
 
     input::selection {
@@ -85,7 +91,7 @@ export class TerminalInput extends LitElement {
       margin-left: 0.5em;
     }
 
-    .cursor-idle {
+    .cursor {
       display: inline-block;
       width: 0.6em;
       height: 1.15em;
@@ -111,9 +117,6 @@ export class TerminalInput extends LitElement {
   /** Output text to display inline after the input */
   @state() private _output = '';
 
-  /** Whether we're currently focused */
-  @state() private _focused = false;
-
   @query('input') private _input!: HTMLInputElement;
 
   private _history: string[] = [];
@@ -136,7 +139,6 @@ export class TerminalInput extends LitElement {
         <span class="prompt-user">visitor</span><span class="prompt-at">@</span><span class="prompt-host">sinedied</span><span class="prompt-path">:${this.termPath}$</span>&nbsp;
       </span>
       <span class="input-area">
-        ${!this._focused ? html`<span class="cursor-idle"></span>` : ''}
         <input
           type="text"
           spellcheck="false"
@@ -145,12 +147,33 @@ export class TerminalInput extends LitElement {
           autocapitalize="off"
           aria-label="Terminal input"
           @keydown=${this._onKeydown}
-          @focus=${() => { this._focused = true; }}
-          @blur=${() => { this._focused = false; }}
-        />
+          @input=${this._onInput}
+          @click=${this._onClick}
+        /><span class="cursor"></span><span class="input-fill"></span>
       </span>
       ${this._output ? html`<span class="output">${this._output}</span>` : ''}
     `;
+  }
+
+  /** Focus input when clicking anywhere on the component */
+  private _onClick() {
+    this._input?.focus();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('click', this._onClick.bind(this));
+  }
+
+  /** Resize input to fit its content */
+  private _onInput() {
+    this._resizeInput();
+  }
+
+  private _resizeInput() {
+    if (this._input) {
+      this._input.style.width = `${this._input.value.length}ch`;
+    }
   }
 
   private _onKeydown(e: KeyboardEvent) {
@@ -158,6 +181,7 @@ export class TerminalInput extends LitElement {
       e.preventDefault();
       const raw = this._input.value.trim();
       this._input.value = '';
+      this._resizeInput();
       this._output = '';
       this._hasError = false;
 
@@ -172,6 +196,7 @@ export class TerminalInput extends LitElement {
       if (this._historyIndex > 0) {
         this._historyIndex--;
         this._input.value = this._history[this._historyIndex];
+        this._resizeInput();
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -182,6 +207,7 @@ export class TerminalInput extends LitElement {
         this._historyIndex = this._history.length;
         this._input.value = '';
       }
+      this._resizeInput();
     } else if (e.key === 'l' && e.ctrlKey) {
       // Ctrl+L — clear output
       e.preventDefault();
