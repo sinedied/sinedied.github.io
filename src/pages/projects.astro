@@ -1,56 +1,50 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProjectsWithGitHubData } from '../lib/github';
+import type { SectionKey } from '../lib/github';
 import { TypingText } from '../components/typing-text.ts';
 import { ProjectCard } from '../components/project-card.ts';
 
 const projects = await getProjectsWithGitHubData();
-const activeProjects = projects.filter((p) => p.section === 'active');
-const legacyProjects = projects.filter((p) => p.section === 'legacy');
+
+const sections: { key: SectionKey; label: string; tag?: string }[] = [
+  { key: 'featured', label: 'Featured' },
+  { key: 'npm', label: 'NPM Packages' },
+  { key: 'vscode', label: 'VS Code' },
+  { key: 'misc', label: 'Misc' },
+  { key: 'legacy', label: 'Legacy', tag: 'unmaintained' },
+];
 ---
 
 <BaseLayout title="Projects — Yohan Lasorsa" description="Open source projects by Yohan Lasorsa">
   <div class="projects-content fade-in fade-in--delay-3">
-    {/* Active projects */}
-    <div class="section-header">Active</div>
-    <div class="projects-list">
-      {activeProjects.map((project, i) => (
-        <ProjectCard
-          client:load
-          class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
-          name={project.name}
-          slug={project.slug}
-          description={project.description}
-          stars={project.stars}
-          url={project.url}
-          language={project.language ?? ''}
-          section={project.section}
-        />
-      ))}
-    </div>
-
-    {/* Legacy projects */}
-    {legacyProjects.length > 0 && (
-      <div class="mt-xl">
-        <div class="section-header">Legacy <span class="tag">unmaintained</span></div>
-        <div class="projects-list">
-          {legacyProjects.map((project, i) => (
-            <ProjectCard
-              client:load
-              legacy
-              class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
-              name={project.name}
-              slug={project.slug}
-              description={project.description}
-              stars={project.stars}
-              url={project.url}
-              language={project.language ?? ''}
-              section={project.section}
-            />
-          ))}
+    {sections.map(({ key, label, tag }, si) => {
+      const items = projects.filter((p) => p.section === key);
+      if (items.length === 0) return null;
+      return (
+        <div class={si > 0 ? 'mt-xl' : ''}>
+          <div class="section-header">
+            {label}
+            {tag && <span class="tag">{tag}</span>}
+          </div>
+          <div class="projects-list">
+            {items.map((project, i) => (
+              <ProjectCard
+                client:load
+                class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
+                name={project.name}
+                slug={project.slug}
+                description={project.description}
+                stars={project.stars}
+                url={project.url}
+                language={project.language ?? ''}
+                section={project.section}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      );
+    })}
   </div>
 </BaseLayout>
 

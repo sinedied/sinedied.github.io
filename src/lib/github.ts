@@ -6,8 +6,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
+export type SectionKey = 'featured' | 'npm' | 'vscode' | 'misc' | 'legacy';
+
 export interface ProjectsData {
-  active: string[];
+  featured: string[];
+  npm: string[];
+  vscode: string[];
+  misc: string[];
   legacy: string[];
 }
 
@@ -19,7 +24,7 @@ export interface RepoInfo {
   lastCommit: string;
   url: string;
   language: string | null;
-  section: 'active' | 'legacy';
+  section: SectionKey;
 }
 
 const GITHUB_API = 'https://api.github.com';
@@ -109,11 +114,13 @@ export function loadProjectsYaml(): ProjectsData {
   return parseYaml(raw) as ProjectsData;
 }
 
+const SECTION_ORDER: SectionKey[] = ['featured', 'npm', 'vscode', 'misc', 'legacy'];
+
 export async function getProjectsWithGitHubData(): Promise<RepoInfo[]> {
   const data = loadProjectsYaml();
   const results: RepoInfo[] = [];
 
-  const fetchAll = async (slugs: string[], section: 'active' | 'legacy') => {
+  const fetchAll = async (slugs: string[], section: SectionKey) => {
     const promises = slugs.map(async (slug) => {
       const api = await fetchRepo(slug);
       const [, name] = slug.split('/');
@@ -131,16 +138,14 @@ export async function getProjectsWithGitHubData(): Promise<RepoInfo[]> {
     await Promise.all(promises);
   };
 
-  await Promise.all([
-    fetchAll(data.active ?? [], 'active'),
-    fetchAll(data.legacy ?? [], 'legacy'),
-  ]);
+  await Promise.all(
+    SECTION_ORDER.map((key) => fetchAll(data[key] ?? [], key)),
+  );
 
-  // Sort by stars descending within each section
-  const active = results.filter((r) => r.section === 'active').sort((a, b) => b.stars - a.stars);
-  const legacy = results.filter((r) => r.section === 'legacy').sort((a, b) => b.stars - a.stars);
-
-  return [...active, ...legacy];
+  // Sort by stars descending within each section, return in section order
+  return SECTION_ORDER.flatMap((key) =>
+    results.filter((r) => r.section === key).sort((a, b) => b.stars - a.stars),
+  );
 }
 
 export function timeAgo(dateStr: string): string {

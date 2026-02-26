@@ -4,42 +4,47 @@
 # last commit are fetched from the GitHub API at build.
 # ═══════════════════════════════════════════════════════
 
-active:
+featured:
+  - sinedied/kanbrawl
+  - sinedied/imapforward
   - sinedied/backslide
+  - sinedied/dmx-hue
   - sinedied/smoke
   - sinedied/hads
-  - sinedied/run-on-output
-  - sinedied/grumpydev-mcp
-  - sinedied/devto-cli
-  - sinedied/imapforward
   - sinedied/freevibes
-  - sinedied/kanbrawl
+
+npm:
+  - sinedied/run-on-output
+  - sinedied/fuzz-run
   - sinedied/semantic-release-npm-github
+  - sinedied/devto-cli
+  - sinedied/nano-gateway
   - sinedied/amv
-  - sinedied/comic-tools
-  - sinedied/nanolive-setup
+  - sinedied/mini-scraper
+  - sinedied/ystats
+  - sinedied/grumpydev-mcp
+
+vscode:
   - sinedied/lantern-vscode-extension
   - sinedied/vscode-win-xp-theme
-  - sinedied/dmx-hue
-  - sinedied/mini-scraper
+
+misc:
+  - sinedied/nanolive-setup
   - sinedied/esp-led-timer
-  - sinedied/svelte-web-components-template
-  - sinedied/publish-devto
-  - sinedied/swag-demo
-  - sinedied/fuzz-run
-  - sinedied/nano-gateway
   - sinedied/pi-midi-host
-  - sinedied/ystats
+  - sinedied/svelte-web-components-template
+  - sinedied/swag-demo
+  - sinedied/comic-tools
 
 legacy:
+  - sinedied/hadra-trance-festival
+  - sinedied/surface-duo-photo-gallery
   - sinedied/ngx-foldable
   - sinedied/ollamazure
   - sinedied/azure-checkin
   - sinedied/azd-infra
-  - sinedied/cxa-track
   - sinedied/teams-angular
   - sinedied/ng-lite-todo
   - sinedied/ng-lite-starter
-  - sinedied/surface-duo-photo-gallery
-  - sinedied/hadra-trance-festival
+  - sinedied/cxa-track
   - sinedied/catfacts
