@@ -7,6 +7,7 @@ import '../styles/themes/green-phosphor.css';
 import '../styles/themes/modern-minimal.css';
 import '../styles/themes/cyberpunk-neon.css';
 import { ThemeSwitcher } from '../components/theme-switcher.ts';
+import { TerminalInput } from '../components/terminal-input.ts';
 
 interface Props {
   title?: string;
@@ -106,10 +107,7 @@ const termPath = pathMap[currentPath] || '~';
 
       {/* Footer */}
       <footer class="terminal-footer">
-        <span class="footer-prompt">
-          <span class="prompt-user">visitor</span><span class="text-dim">@</span><span class="prompt-host">sinedied</span><span class="prompt-path">:{termPath}$</span>
-        </span>
-        <span class="cursor"></span>
+        <TerminalInput client:load term-path={termPath} />
       </footer>
     </div>
   </body>
@@ -121,19 +119,5 @@ const termPath = pathMap[currentPath] || '~';
     border-top: 1px solid var(--term-border);
     font-size: var(--font-size-sm);
     flex-shrink: 0;
-  }
-
-  .prompt-user {
-    color: var(--term-fg);
-    font-weight: 700;
-  }
-
-  .prompt-host {
-    color: var(--term-accent);
-    font-weight: 700;
-  }
-
-  .prompt-path {
-    color: var(--term-accent);
   }
 </style>
