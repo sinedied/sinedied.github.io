@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, state, query } from 'lit/decorators.js';
+import { startTetris } from '../lib/tetris.js';
 
 /**
  * Interactive terminal input — easter egg in the footer.
@@ -339,6 +340,13 @@ export class TerminalInput extends LitElement {
     // ── matrix ──
     if (cmd === 'matrix') {
       this._matrixRain();
+      return;
+    }
+
+    // ── tetris ──
+    if (cmd === 'tetris') {
+      const content = document.querySelector('.terminal-content') as HTMLElement;
+      if (content) startTetris(content);
       return;
     }
 
