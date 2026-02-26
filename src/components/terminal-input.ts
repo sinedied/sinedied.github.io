@@ -324,6 +324,18 @@ export class TerminalInput extends LitElement {
       return;
     }
 
+    // ── hostname ──
+    if (cmd === 'hostname') {
+      this._output = 'sinedied.github.io';
+      return;
+    }
+
+    // ── top ──
+    if (cmd === 'top') {
+      this._output = 'PID 1 visitor 100% browsing sinedied.github.io';
+      return;
+    }
+
     // ── Unknown ──
     this._hasError = true;
     this._output = `bash: ${cmd}: command not found`;
