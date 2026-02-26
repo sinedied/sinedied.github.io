@@ -130,6 +130,8 @@ export class TerminalInput extends LitElement {
     'home': '/',
     'projects': '/projects/',
     'events': '/events/',
+    'man': '/help/',
+    'help': '/help/',
   };
 
   render() {
@@ -261,6 +263,12 @@ export class TerminalInput extends LitElement {
     // ── sudo ──
     if (cmd === 'sudo') {
       this._output = 'Nice try.';
+      return;
+    }
+
+    // ── man ──
+    if (cmd === 'man' || cmd === 'help') {
+      window.location.href = '/help/';
       return;
     }
 
