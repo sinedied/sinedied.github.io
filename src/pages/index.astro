@@ -11,7 +11,16 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
     <div class="section-header">About me</div>
 
     {/* Info block */}
-    <div class="info">
+    <div class="about-row">
+      <img
+        class="profile-pic"
+        src="https://github.com/sinedied.png"
+        alt="Yohan Lasorsa"
+        width="120"
+        height="120"
+        loading="eager"
+      />
+      <div class="info">
       <div class="info-line">
         <span class="info-key">Name:</span>
         <span>{siteConfig.name}</span>
@@ -31,6 +40,7 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
       <div class="info-line">
         <span class="info-key">Interests:</span>
         <span>{siteConfig.bio}</span>
+      </div>
       </div>
     </div>
 
@@ -61,8 +71,21 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
   }
 
   /* ── Info ───────────────────────────────── */
-  .info {
+  .about-row {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: flex-start;
     margin-bottom: var(--space-2xl);
+  }
+
+  .profile-pic {
+    border-radius: 50%;
+    border: 2px solid var(--term-border);
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .info {
   }
 
   .info-line {
@@ -127,6 +150,16 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
 
   /* ── Responsive ────────────────────────── */
   @media (max-width: 640px) {
+    .about-row {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+    }
+
     .info-key {
       min-width: auto;
       display: block;
