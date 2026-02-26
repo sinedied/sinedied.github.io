@@ -32,6 +32,10 @@
   border-color: var(--term-border);
 }
 
+[data-theme="modern-minimal"] .titlebar {
+  background: #323233;
+}
+
 [data-theme="modern-minimal"] a:hover {
   text-shadow: none;
   text-decoration: underline;
@@ -65,6 +69,14 @@
 [data-theme="modern-minimal-light"] .terminal-window {
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
   border-color: var(--term-border);
+}
+
+[data-theme="modern-minimal-light"] .titlebar {
+  background: var(--term-surface);
+}
+
+[data-theme="modern-minimal-light"] .terminal-nav {
+  background: #f8f8f8;
 }
 
 [data-theme="modern-minimal-light"] a:hover {

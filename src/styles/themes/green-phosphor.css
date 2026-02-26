@@ -88,7 +88,7 @@
 
 /* ── Titlebar: monochrome green with glow ── */
 [data-theme="green-phosphor"] .titlebar {
-  background: rgba(0, 255, 65, 0.02);
+  background: rgba(0, 255, 65, 0.06);
   border-bottom-color: rgba(0, 255, 65, 0.1);
 }
 [data-theme="green-phosphor"] .titlebar-dot--close {

@@ -65,7 +65,7 @@
 }
 
 [data-theme="cyberpunk-neon"] .titlebar {
-  background: linear-gradient(90deg, #0e0e14 0%, #100e18 50%, #120d1a 100%);
+  background: linear-gradient(90deg, #141420 0%, #18122a 50%, #1c1028 100%);
   border-bottom: 1px solid rgba(124, 58, 237, 0.25);
 }
 
