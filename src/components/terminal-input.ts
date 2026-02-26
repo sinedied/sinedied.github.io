@@ -264,6 +264,11 @@ export class TerminalInput extends LitElement {
 
     // ── sudo ──
     if (cmd === 'sudo') {
+      if (args[0] === 'exit') {
+        window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+        this._output = 'Goodbye ;)';
+        return;
+      }
       this._output = 'Nice try.';
       return;
     }
