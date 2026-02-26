@@ -53,7 +53,8 @@
 }
 
 [data-theme="cyberpunk-neon"] .section-header {
-  background: linear-gradient(90deg, #a78bfa, #db2777, #38bdf8);
+  width: fit-content;
+  background: linear-gradient(90deg, #b197fc, #f06595);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -79,5 +80,6 @@
 
 [data-theme="cyberpunk-neon"] .terminal-nav a.active {
   color: #db2777;
+  background: rgba(124, 58, 237, 0.15);
   text-shadow: 0 0 10px rgba(219, 39, 119, 0.5);
 }
