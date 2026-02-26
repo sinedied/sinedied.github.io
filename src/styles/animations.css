@@ -1,0 +1,192 @@
+/* ═══════════════════════════════════════════════════════
+   ANIMATIONS — CLI effects & transitions
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Typing Animation ───────────────────────────────── */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes typing-cursor {
+  0%, 100% { border-right-color: var(--term-fg); }
+  50% { border-right-color: transparent; }
+}
+
+.typing-line {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--term-fg);
+  animation:
+    typing 1.2s steps(40, end) forwards,
+    typing-cursor 1.06s step-end infinite;
+}
+
+.typing-line--fast {
+  animation:
+    typing 0.6s steps(20, end) forwards,
+    typing-cursor 1.06s step-end infinite;
+}
+
+.typing-line--done {
+  border-right-color: transparent;
+  animation: none;
+  width: auto;
+}
+
+/* ── Fade In ────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in--delay-1 { animation-delay: 0.1s; }
+.fade-in--delay-2 { animation-delay: 0.2s; }
+.fade-in--delay-3 { animation-delay: 0.3s; }
+.fade-in--delay-4 { animation-delay: 0.4s; }
+.fade-in--delay-5 { animation-delay: 0.5s; }
+.fade-in--delay-6 { animation-delay: 0.6s; }
+.fade-in--delay-7 { animation-delay: 0.7s; }
+
+/* ── Line Print (simulate terminal output) ──────────── */
+@keyframes linePrint {
+  0% {
+    opacity: 0;
+    max-height: 0;
+  }
+  1% {
+    opacity: 1;
+    max-height: 0;
+  }
+  100% {
+    opacity: 1;
+    max-height: 3rem;
+  }
+}
+
+.line-print {
+  overflow: hidden;
+  animation: linePrint 0.15s ease-out forwards;
+  opacity: 0;
+}
+
+/* ── Boot Line ──────────────────────────────────────── */
+@keyframes bootLine {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.boot-line {
+  opacity: 0;
+  animation: bootLine 0.3s ease-out forwards;
+  font-size: var(--font-size-sm);
+  color: var(--term-dim);
+}
+
+.boot-line .ok {
+  color: var(--term-success);
+  font-weight: 700;
+}
+
+.boot-line--1 { animation-delay: 0.1s; }
+.boot-line--2 { animation-delay: 0.3s; }
+.boot-line--3 { animation-delay: 0.5s; }
+.boot-line--4 { animation-delay: 0.7s; }
+.boot-line--5 { animation-delay: 0.9s; }
+
+/* ── Scanline Sweep (CRT effect) ───────────────────── */
+@keyframes scanlineSweep {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+.scanline-sweep::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  top: -100%;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(var(--term-fg-rgb, 0, 255, 65), 0.03),
+    transparent
+  );
+  animation: scanlineSweep 8s linear infinite;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* ── Glow Pulse ─────────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 4px var(--term-glow); }
+  50% { text-shadow: 0 0 12px var(--term-glow), 0 0 20px var(--term-glow); }
+}
+
+.glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ── CRT Power On ───────────────────────────────────── */
+@keyframes crtOn {
+  0% {
+    transform: scaleY(0.005) scaleX(0);
+    filter: brightness(30);
+    opacity: 1;
+  }
+  20% {
+    transform: scaleY(0.005) scaleX(1);
+    filter: brightness(30);
+  }
+  50% {
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(2);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+.crt-on {
+  animation: crtOn 0.8s cubic-bezier(0.2, 0, 0.1, 1) forwards;
+  opacity: 0;
+}
+
+/* ── Reduced Motion Override ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .typing-line,
+  .typing-line--fast,
+  .fade-in,
+  .line-print,
+  .boot-line,
+  .glow-pulse,
+  .crt-on {
+    animation: none !important;
+    opacity: 1 !important;
+    width: auto !important;
+    max-height: none !important;
+    transform: none !important;
+    filter: none !important;
+    border-right-color: transparent !important;
+  }
+
+  .scanline-sweep::before {
+    animation: none !important;
+    display: none;
+  }
+}

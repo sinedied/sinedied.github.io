@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════════════
+   THEME: Green Phosphor — Classic CRT terminal
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="green-phosphor"] {
+  --term-bg: #0a0a0a;
+  --term-fg: #00ff41;
+  --term-accent: #00cc33;
+  --term-dim: #007a1e;
+  --term-border: #003d10;
+  --term-glow: rgba(0, 255, 65, 0.45);
+  --term-error: #ff4444;
+  --term-warning: #ccff00;
+  --term-success: #00ff41;
+  --term-surface: #0d0d0d;
+  --term-surface-hover: #141414;
+  --term-fg-rgb: 0, 255, 65;
+
+  --scanline-opacity: 0.04;
+  --glow-intensity: 1;
+}
+
+[data-theme="green-phosphor"] body {
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.35);
+}
+
+[data-theme="green-phosphor"] .terminal-window {
+  box-shadow:
+    0 0 40px rgba(0, 255, 65, 0.08),
+    0 4px 32px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(0, 255, 65, 0.02);
+}
+
+[data-theme="green-phosphor"] a:hover {
+  text-shadow: 0 0 12px rgba(0, 255, 65, 0.6);
+}
+
+[data-theme="green-phosphor"] .titlebar-dot--close { background: #00ff41; opacity: 0.4; }
+[data-theme="green-phosphor"] .titlebar-dot--minimize { background: #00ff41; opacity: 0.25; }
+[data-theme="green-phosphor"] .titlebar-dot--maximize { background: #00ff41; opacity: 0.15; }

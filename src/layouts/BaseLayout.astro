@@ -1,0 +1,105 @@
+---
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '../styles/base.css';
+import '../styles/animations.css';
+import '../styles/themes/green-phosphor.css';
+import '../styles/themes/amber-phosphor.css';
+import '../styles/themes/modern-minimal.css';
+import '../styles/themes/cyberpunk-neon.css';
+import { ThemeSwitcher } from '../components/theme-switcher.ts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Yohan Lasorsa — Developer Advocate',
+  description = 'Personal website of Yohan Lasorsa, Developer Advocate at Microsoft. Open source, JavaScript, AI, Cloud.',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/', label: 'about', path: '/' },
+  { href: '/projects/', label: 'projects', path: '/projects' },
+  { href: '/events/', label: 'events', path: '/events' },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⌨</text></svg>" />
+
+    {/* Blocking script to apply theme before paint — prevents flash */}
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'green-phosphor' : 'modern-minimal-light');
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div class="terminal-window scanline-sweep">
+      {/* Title bar */}
+      <div class="titlebar">
+        <div class="titlebar-dots">
+          <span class="titlebar-dot titlebar-dot--close"></span>
+          <span class="titlebar-dot titlebar-dot--minimize"></span>
+          <span class="titlebar-dot titlebar-dot--maximize"></span>
+        </div>
+        <span class="titlebar-title">sinedied — bash</span>
+        <ThemeSwitcher client:load />
+      </div>
+
+      {/* Navigation */}
+      <nav class="terminal-nav">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={currentPath === item.href || currentPath === item.path ? 'active' : ''}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      {/* Content */}
+      <main class="terminal-content">
+        <slot />
+      </main>
+
+      {/* Footer */}
+      <footer class="terminal-footer">
+        <span class="text-dim">visitor@sinedied:~$ <span class="cursor"></span></span>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .terminal-footer {
+    padding: 0.75rem var(--terminal-padding);
+    border-top: 1px solid var(--term-border);
+    font-size: var(--font-size-sm);
+  }
+</style>

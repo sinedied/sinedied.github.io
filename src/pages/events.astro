@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+import { parse as parseYaml } from 'yaml';
+import { TypingText } from '../components/typing-text.ts';
+import { EventItem } from '../components/event-item.ts';
+
+interface EventEntry {
+  date: string;
+  conference: string;
+  title: string;
+  coSpeaker?: string;
+  youtube?: string;
+  slides?: string;
+  location?: string;
+}
+
+const yamlPath = path.resolve('src/data/events.yaml');
+const raw = fs.readFileSync(yamlPath, 'utf-8');
+const events: EventEntry[] = parseYaml(raw);
+
+// Sort by date descending (most recent first)
+events.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+// Group events by year
+const eventsByYear = events.reduce<Record<string, EventEntry[]>>((acc, event) => {
+  const year = new Date(event.date).getFullYear().toString();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(event);
+  return acc;
+}, {});
+
+const years = Object.keys(eventsByYear).sort((a, b) => Number(b) - Number(a));
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+---
+
+<BaseLayout title="Events — Yohan Lasorsa" description="Conference talks and presentations by Yohan Lasorsa">
+  <div class="prompt-line fade-in">
+    <span class="prompt">
+      <span class="prompt-user">visitor</span><span class="text-dim">@</span><span class="prompt-path">sinedied</span><span class="prompt-symbol">:~/events$</span>
+    </span>
+    <TypingText client:load text="cat talks.log | sort -r" speed={35} hide-cursor-on-done />
+  </div>
+
+  <div class="events-content fade-in fade-in--delay-3">
+    {years.map((year) => (
+      <div class="year-section">
+        <div class="year-header">{year}</div>
+        <div class="year-events">
+          {eventsByYear[year].map((event, i) => (
+            <EventItem
+              client:load
+              class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
+              date={formatDate(event.date)}
+              conference={event.conference}
+              title={event.title}
+              co-speaker={event.coSpeaker ?? ''}
+              youtube={event.youtube ?? ''}
+              slides={event.slides ?? ''}
+            />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .prompt-line {
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-md);
+  }
+
+  .events-content {
+    margin-top: var(--space-md);
+  }
+
+  .year-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .year-header {
+    color: var(--term-accent);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--term-border);
+  }
+
+  .year-header::before {
+    content: '── ';
+    color: var(--term-dim);
+  }
+
+  .year-header::after {
+    content: ' ──';
+    color: var(--term-dim);
+  }
+
+  .year-events {
+    padding-left: var(--space-sm);
+  }
+</style>

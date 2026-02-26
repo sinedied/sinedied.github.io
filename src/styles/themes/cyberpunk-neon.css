@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════════════════
+   THEME: Cyberpunk Neon — Bold neon on dark
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="cyberpunk-neon"] {
+  --term-bg: #0a0a1a;
+  --term-fg: #00ffff;
+  --term-accent: #ff00ff;
+  --term-dim: #0088aa;
+  --term-border: #1a0033;
+  --term-glow: rgba(0, 255, 255, 0.35);
+  --term-error: #ff0055;
+  --term-warning: #ffee00;
+  --term-success: #00ff88;
+  --term-surface: #0d0d22;
+  --term-surface-hover: #151530;
+  --term-fg-rgb: 0, 255, 255;
+
+  --scanline-opacity: 0.02;
+  --glow-intensity: 1;
+}
+
+[data-theme="cyberpunk-neon"] body {
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+}
+
+[data-theme="cyberpunk-neon"] .terminal-window {
+  border: 1px solid;
+  border-image: linear-gradient(135deg, #ff00ff, #00ffff, #ff00ff) 1;
+  box-shadow:
+    0 0 30px rgba(255, 0, 255, 0.1),
+    0 0 60px rgba(0, 255, 255, 0.05),
+    0 4px 32px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="cyberpunk-neon"] a {
+  color: var(--term-accent);
+}
+
+[data-theme="cyberpunk-neon"] a:hover {
+  color: #00ffff;
+  text-shadow:
+    0 0 8px rgba(255, 0, 255, 0.5),
+    0 0 16px rgba(255, 0, 255, 0.3);
+}
+
+[data-theme="cyberpunk-neon"] .section-header {
+  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="cyberpunk-neon"] .section-header::before {
+  -webkit-text-fill-color: var(--term-dim);
+}
+
+[data-theme="cyberpunk-neon"] .titlebar {
+  background: linear-gradient(90deg, #0d0d22, #150030);
+  border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+}
+
+[data-theme="cyberpunk-neon"] .titlebar-dot--close { background: #ff0055; }
+[data-theme="cyberpunk-neon"] .titlebar-dot--minimize { background: #ff00ff; }
+[data-theme="cyberpunk-neon"] .titlebar-dot--maximize { background: #00ffff; }
+
+[data-theme="cyberpunk-neon"] .terminal-nav {
+  background: linear-gradient(90deg, #0d0d22, #150030);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+[data-theme="cyberpunk-neon"] .terminal-nav a.active {
+  color: #ff00ff;
+  text-shadow: 0 0 8px rgba(255, 0, 255, 0.4);
+}

@@ -1,0 +1,130 @@
+import { LitElement, html, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+/**
+ * Theme switcher component — selects between terminal themes.
+ * Stores preference in localStorage and applies data-theme attribute.
+ */
+@customElement('theme-switcher')
+export class ThemeSwitcher extends LitElement {
+  static styles = css`
+    :host {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--font-size-sm, 0.85rem);
+    }
+
+    .label {
+      color: var(--term-dim, #555);
+      user-select: none;
+    }
+
+    .themes {
+      display: inline-flex;
+      gap: 4px;
+      padding: 2px;
+      border: 1px solid var(--term-border, #333);
+      border-radius: 4px;
+      background: var(--term-surface, #111);
+    }
+
+    button {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--term-dim, #555);
+      font-family: inherit;
+      font-size: inherit;
+      padding: 3px 8px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      color: var(--term-fg, #fff);
+      background: var(--term-surface-hover, #222);
+    }
+
+    button.active {
+      color: var(--term-accent, #0f0);
+      border-color: var(--term-accent, #0f0);
+      background: var(--term-surface-hover, #222);
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--term-accent, #0f0);
+      outline-offset: 1px;
+    }
+  `;
+
+  static themes = [
+    { id: 'green-phosphor', label: 'Phosphor' },
+    { id: 'amber-phosphor', label: 'Amber' },
+    { id: 'modern-minimal', label: 'Minimal' },
+    { id: 'cyberpunk-neon', label: 'Neon' },
+  ] as const;
+
+  @property({ type: String }) current = 'green-phosphor';
+
+  connectedCallback() {
+    super.connectedCallback();
+    const stored = localStorage.getItem('theme');
+    if (stored) {
+      this.current = stored;
+    } else {
+      // Auto-detect light/dark preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.current = prefersDark ? 'green-phosphor' : 'modern-minimal-light';
+    }
+    this._applyTheme(this.current);
+  }
+
+  private _applyTheme(themeId: string) {
+    document.documentElement.setAttribute('data-theme', themeId);
+    localStorage.setItem('theme', themeId);
+    this.current = themeId;
+    this.requestUpdate();
+  }
+
+  private _handleClick(themeId: string) {
+    // Special handling for modern-minimal — toggle light/dark based on system preference
+    if (themeId === 'modern-minimal') {
+      const currentIsMinimalLight = this.current === 'modern-minimal-light';
+      const currentIsMinimalDark = this.current === 'modern-minimal';
+      if (currentIsMinimalDark) {
+        this._applyTheme('modern-minimal-light');
+        return;
+      } else if (currentIsMinimalLight) {
+        this._applyTheme('modern-minimal');
+        return;
+      }
+    }
+    this._applyTheme(themeId);
+  }
+
+  render() {
+    return html`
+      <span class="label">theme:</span>
+      <div class="themes" role="radiogroup" aria-label="Select theme">
+        ${ThemeSwitcher.themes.map(
+          (t) => html`
+            <button
+              role="radio"
+              aria-checked=${this.current === t.id || (t.id === 'modern-minimal' && this.current === 'modern-minimal-light')}
+              class=${this.current === t.id || (t.id === 'modern-minimal' && this.current === 'modern-minimal-light') ? 'active' : ''}
+              @click=${() => this._handleClick(t.id)}
+            >${t.label}</button>
+          `
+        )}
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'theme-switcher': ThemeSwitcher;
+  }
+}

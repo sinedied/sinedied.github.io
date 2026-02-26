@@ -1,0 +1,17 @@
+# ═══════════════════════════════════════════════════════
+# Projects — GitHub repositories
+# Add repos as owner/name slugs. Stars and last commit
+# are fetched from the GitHub API at build time.
+# You can optionally override the description field.
+# ═══════════════════════════════════════════════════════
+
+active:
+  - repo: sinedied/backslide
+  - repo: sinedied/smoke
+  - repo: sinedied/hads
+  - repo: sinedied/run-on-output
+  - repo: sinedied/grumpydev-mcp
+  - repo: sinedied/devto-cli
+
+legacy:
+  - repo: sinedied/ngx-foldable

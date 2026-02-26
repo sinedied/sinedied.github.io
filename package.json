@@ -1,0 +1,29 @@
+{
+  "name": "sinedied.github.io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal website of Yohan Lasorsa — Developer Advocate at Microsoft",
+  "author": "Yohan Lasorsa",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/lit": "^4.3.0",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "astro": "^5.17.3",
+    "lit": "^3.3.2",
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3"
+  }
+}

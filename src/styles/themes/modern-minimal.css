@@ -1,0 +1,76 @@
+/* ═══════════════════════════════════════════════════════
+   THEME: Modern Minimal — Clean, no glow
+   Respects prefers-color-scheme for light/dark
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Dark mode (default) ───────────────────────────── */
+[data-theme="modern-minimal"] {
+  --term-bg: #1a1a2e;
+  --term-fg: #e0e0e8;
+  --term-accent: #7c8aff;
+  --term-dim: #5a5a7a;
+  --term-border: #2a2a44;
+  --term-glow: rgba(124, 138, 255, 0.15);
+  --term-error: #ff6b6b;
+  --term-warning: #ffd93d;
+  --term-success: #6bcb77;
+  --term-surface: #16162a;
+  --term-surface-hover: #22223a;
+  --term-fg-rgb: 224, 224, 232;
+
+  --scanline-opacity: 0;
+  --glow-intensity: 0;
+}
+
+[data-theme="modern-minimal"] body {
+  text-shadow: none;
+}
+
+[data-theme="modern-minimal"] .terminal-window {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-color: var(--term-border);
+}
+
+[data-theme="modern-minimal"] a:hover {
+  text-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Light mode ─────────────────────────────────────── */
+[data-theme="modern-minimal-light"] {
+  --term-bg: #f5f5f0;
+  --term-fg: #2a2a3a;
+  --term-accent: #4a56c8;
+  --term-dim: #8888a0;
+  --term-border: #d0d0da;
+  --term-glow: rgba(74, 86, 200, 0.1);
+  --term-error: #dc3545;
+  --term-warning: #e6a800;
+  --term-success: #28a745;
+  --term-surface: #eaeae5;
+  --term-surface-hover: #e0e0db;
+  --term-fg-rgb: 42, 42, 58;
+
+  --scanline-opacity: 0;
+  --glow-intensity: 0;
+}
+
+[data-theme="modern-minimal-light"] body {
+  text-shadow: none;
+}
+
+[data-theme="modern-minimal-light"] .terminal-window {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--term-border);
+}
+
+[data-theme="modern-minimal-light"] a:hover {
+  text-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-theme="modern-minimal-light"] .titlebar-dot--close { background: #ff5f57; }
+[data-theme="modern-minimal-light"] .titlebar-dot--minimize { background: #febc2e; }
+[data-theme="modern-minimal-light"] .titlebar-dot--maximize { background: #28c840; }

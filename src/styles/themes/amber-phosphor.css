@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════════════
+   THEME: Amber Phosphor — 80s terminal warmth
+   ═══════════════════════════════════════════════════════ */
+
+[data-theme="amber-phosphor"] {
+  --term-bg: #0d0800;
+  --term-fg: #ffb000;
+  --term-accent: #ff9500;
+  --term-dim: #8a5f00;
+  --term-border: #3d2a00;
+  --term-glow: rgba(255, 176, 0, 0.4);
+  --term-error: #ff4444;
+  --term-warning: #ffee00;
+  --term-success: #ffb000;
+  --term-surface: #100c02;
+  --term-surface-hover: #1a1305;
+  --term-fg-rgb: 255, 176, 0;
+
+  --scanline-opacity: 0.04;
+  --glow-intensity: 1;
+}
+
+[data-theme="amber-phosphor"] body {
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.3);
+}
+
+[data-theme="amber-phosphor"] .terminal-window {
+  box-shadow:
+    0 0 40px rgba(255, 176, 0, 0.06),
+    0 4px 32px rgba(0, 0, 0, 0.6),
+    inset 0 0 80px rgba(255, 176, 0, 0.015);
+}
+
+[data-theme="amber-phosphor"] a:hover {
+  text-shadow: 0 0 12px rgba(255, 176, 0, 0.5);
+}
+
+[data-theme="amber-phosphor"] .titlebar-dot--close { background: #ffb000; opacity: 0.4; }
+[data-theme="amber-phosphor"] .titlebar-dot--minimize { background: #ffb000; opacity: 0.25; }
+[data-theme="amber-phosphor"] .titlebar-dot--maximize { background: #ffb000; opacity: 0.15; }
