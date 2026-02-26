@@ -1,13 +1,14 @@
 # sinedied.github.io
 
-Personal website of Yohan Lasorsa — Developer Advocate at Microsoft. Terminal-themed static site built with Astro and Lit v3 web components.
+Personal website of Yohan Lasorsa — Principal Developer Advocate at Microsoft. Terminal-themed static site built with Astro and Lit v3 web components.
 
 ## Overview
 
 - Static personal website deployed on GitHub Pages at https://sinedied.github.io
 - Terminal/CLI aesthetic with multiple selectable color themes
 - Sections: Home (about/neofetch-style), Projects (GitHub repos), Events (conference talks)
-- Blog section planned but not yet implemented
+- Hidden help page (`/help/`) documents all terminal commands
+- Interactive terminal input easter egg in the footer
 - Projects page fetches live data from the GitHub API at build time
 
 ## Project Structure
@@ -18,7 +19,7 @@ src/
 ├── data/             # YAML data files (projects, events)
 ├── layouts/          # Astro layouts (BaseLayout)
 ├── lib/              # Shared utilities (config, GitHub API)
-├── pages/            # Astro pages (index, projects, events)
+├── pages/            # Astro pages (index, projects, events, help)
 └── styles/           # CSS: base, animations, themes/
 public/               # Static assets (.nojekyll)
 .github/workflows/    # GitHub Actions deploy pipeline
@@ -66,11 +67,10 @@ npm run preview   # Preview production build locally
 
 ## Themes
 
-Four selectable themes stored in `localStorage` and applied via `data-theme` attribute on `<html>`:
+Three selectable themes stored in `localStorage` and applied via `data-theme` attribute on `<html>`:
 
 - `green-phosphor` — classic CRT green
-- `amber-phosphor` — 80s amber terminal
-- `modern-minimal` / `modern-minimal-light` — clean dark/light mode
+- `modern-minimal` / `modern-minimal-light` — clean dark/light mode (auto-detected)
 - `cyberpunk-neon` — neon cyan/magenta
 
 A blocking inline script in `<head>` applies the theme before first paint to prevent flash.
@@ -80,3 +80,12 @@ A blocking inline script in `<head>` applies the theme before first paint to pre
 - No server-side code; fully static output
 - `GITHUB_TOKEN` is only used at build time and passed via GitHub Actions secrets
 - All external links use `target="_blank" rel="noopener noreferrer"`
+
+## Terminal Easter Egg
+
+The footer contains an interactive terminal input (`src/components/terminal-input.ts`) that accepts typed commands on a single line. Commands include navigation (`cd`, `ls`, `pwd`), info (`whoami`, `date`, `uptime`, `uname`, `echo`), help (`man`, `help`), and fun effects (`rm -rf /`, `shutdown`, `reboot`, `sudo`, `exit`, `clear`).
+
+- The hidden help page at `src/pages/help.astro` (URL: `/help/`) documents all available commands and shortcuts
+- **When adding, removing, or modifying commands in `terminal-input.ts`, always update the help page (`src/pages/help.astro`) to stay in sync**
+- CRT shutdown/reboot animations are defined in `src/styles/animations.css` (`crtOff` keyframes, `.crt-shutdown` class)
+- The reboot command synthesizes a Mac-like boot chime via the Web Audio API before replaying the CRT power-on animation
