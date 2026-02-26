@@ -1,15 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig, socialIcons, type SocialKey } from '../lib/config';
-import { BootSequence } from '../components/boot-sequence.ts';
 import { TypingText } from '../components/typing-text.ts';
 
 const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][];
 ---
 
 <BaseLayout>
-  <BootSequence client:load />
-
   <div class="home-content fade-in fade-in--delay-3">
     {/* Neofetch-style display */}
     <div class="neofetch">
