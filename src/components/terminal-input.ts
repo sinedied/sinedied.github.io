@@ -121,6 +121,7 @@ export class TerminalInput extends LitElement {
 
   private _history: string[] = [];
   private _historyIndex = -1;
+  private _loadTime = Date.now();
 
   /** Map of page aliases to their hrefs */
   private readonly _pages: Record<string, string> = {
@@ -288,6 +289,38 @@ export class TerminalInput extends LitElement {
     // ── exit ──
     if (cmd === 'exit') {
       this._output = 'There is no escape.';
+      return;
+    }
+
+    // ── date ──
+    if (cmd === 'date') {
+      this._output = new Date().toString();
+      return;
+    }
+
+    // ── uptime ──
+    if (cmd === 'uptime') {
+      const elapsed = Math.floor((Date.now() - this._loadTime) / 1000);
+      const h = Math.floor(elapsed / 3600);
+      const m = Math.floor((elapsed % 3600) / 60);
+      const s = elapsed % 60;
+      const parts = [];
+      if (h > 0) parts.push(`${h}h`);
+      if (m > 0 || h > 0) parts.push(`${m}m`);
+      parts.push(`${s}s`);
+      this._output = `up ${parts.join(' ')}, 1 user`;
+      return;
+    }
+
+    // ── uname ──
+    if (cmd === 'uname') {
+      this._output = 'sinedied-web 1.0.0 x86_64 Astro/Lit';
+      return;
+    }
+
+    // ── echo ──
+    if (cmd === 'echo') {
+      this._output = args.join(' ');
       return;
     }
 
