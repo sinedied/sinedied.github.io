@@ -336,6 +336,12 @@ export class TerminalInput extends LitElement {
       return;
     }
 
+    // ── matrix ──
+    if (cmd === 'matrix') {
+      this._matrixRain();
+      return;
+    }
+
     // ── Unknown ──
     this._hasError = true;
     this._output = `bash: ${cmd}: command not found`;
@@ -447,5 +453,102 @@ export class TerminalInput extends LitElement {
     } catch {
       // Web Audio API not available
     }
+  }
+
+  /** Display a Matrix-style digital rain in the content area. */
+  private _matrixRain() {
+    const content = document.querySelector('.terminal-content') as HTMLElement;
+    if (!content) return;
+
+    // Get theme colors
+    const style = getComputedStyle(document.documentElement);
+    const bg = style.getPropertyValue('--term-bg').trim() || '#0d0d0d';
+    const fg = style.getPropertyValue('--term-fg').trim() || '#00ff41';
+    const accent = style.getPropertyValue('--term-accent').trim() || '#00cc33';
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+
+    // Fill the entire content area, account for device pixel ratio
+    const dpr = window.devicePixelRatio || 1;
+    canvas.style.cssText = 'position:absolute;inset:0;z-index:50;pointer-events:none;width:100%;height:100%;';
+    content.style.position = 'relative';
+    content.appendChild(canvas);
+
+    canvas.width = content.offsetWidth * dpr;
+    canvas.height = content.offsetHeight * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Fill with background color initially
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, content.offsetWidth, content.offsetHeight);
+
+    const fontSize = 18;
+    const cellWidth = fontSize;
+    const cellHeight = fontSize * 1.3;
+    const cols = Math.floor(content.offsetWidth / cellWidth);
+    const drops: number[] = new Array(cols).fill(0).map(() => Math.floor(Math.random() * -20));
+
+    // Japanese katakana
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+    const startTime = performance.now();
+    const maxDuration = 8000;
+    const fadeStart = 7500;
+    let frameCount = 0;
+
+    const draw = (now: number) => {
+      const elapsed = now - startTime;
+
+      // Semi-transparent bg overlay for trail effect
+      ctx.fillStyle = bg;
+      ctx.globalAlpha = 0.1;
+      ctx.fillRect(0, 0, content.offsetWidth, content.offsetHeight);
+      ctx.globalAlpha = 1;
+
+      ctx.font = `bold ${fontSize}px monospace`;
+      ctx.textBaseline = 'top';
+
+      for (let i = 0; i < cols; i++) {
+        const x = i * cellWidth;
+        const y = drops[i] * cellHeight;
+
+        // Only draw if on screen
+        if (drops[i] >= 0) {
+          // Clear the cell before drawing to prevent overlap
+          ctx.clearRect(x, y, cellWidth, cellHeight);
+          ctx.fillStyle = bg;
+          ctx.globalAlpha = 1;
+          ctx.fillRect(x, y, cellWidth, cellHeight);
+
+          // Head of the drop is bright (fg color)
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillStyle = fg;
+          ctx.fillText(char, x, y);
+        }
+
+        // Advance by 1 row every 3rd frame
+        if (frameCount % 3 === 0) drops[i]++;
+
+        // Reset drop to top with some randomness
+        if (y > content.offsetHeight && Math.random() > 0.975) {
+          drops[i] = Math.floor(Math.random() * -10);
+        }
+      }
+
+      frameCount++;
+      if (elapsed > fadeStart) {
+        const fadeProgress = (elapsed - fadeStart) / (maxDuration - fadeStart);
+        canvas.style.opacity = `${1 - fadeProgress}`;
+      }
+
+      if (elapsed < maxDuration) {
+        requestAnimationFrame(draw);
+      } else {
+        canvas.remove();
+      }
+    };
+
+    requestAnimationFrame(draw);
   }
 }
