@@ -121,6 +121,21 @@ const termPath = pathMap[currentPath] || '~';
 </html>
 
 <style>
+  /*
+   * Pre-hydration theme-switcher active-button styles.
+   * Uses ::part() to pierce Shadow DOM and highlight the correct button
+   * based on the data-theme attribute set by the blocking <head> script.
+   * Once the component hydrates and sets [ready], internal styles take over.
+   */
+  html[data-theme="modern-minimal"] theme-switcher:not([ready])::part(btn-modern-minimal),
+  html[data-theme="modern-minimal-light"] theme-switcher:not([ready])::part(btn-modern-minimal),
+  html[data-theme="cyberpunk-neon"] theme-switcher:not([ready])::part(btn-cyberpunk-neon),
+  html[data-theme="green-phosphor"] theme-switcher:not([ready])::part(btn-green-phosphor) {
+    color: var(--term-accent, #0f0);
+    border-color: var(--term-accent, #0f0);
+    background: var(--term-surface-hover, #222);
+  }
+
   .terminal-footer {
     padding: 0.75rem var(--terminal-padding);
     border-top: 1px solid var(--term-border);

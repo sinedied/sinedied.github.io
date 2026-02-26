@@ -141,6 +141,25 @@ export class ThemeSwitcher extends LitElement {
       z-index: 1;
     }
 
+    /* Before hydration: ::part() from the page styles the correct active
+       button based on data-theme. We reset internal .active so it doesn't
+       conflict with the external ::part() rules. */
+    :host(:not([ready])) button.active {
+      color: var(--term-dim, #555);
+      border-color: transparent;
+      background: none;
+    }
+
+    /* Icon (sun/moon) depends on JS state — hide until hydrated */
+    :host(:not([ready])) .icon {
+      visibility: hidden;
+    }
+
+    /* Dropdown shows current label from JS — hide until hydrated */
+    :host(:not([ready])) .dropdown-toggle {
+      visibility: hidden;
+    }
+
     @media (max-width: 640px) {
       .label { display: none; }
       .themes { display: none; }
@@ -197,6 +216,8 @@ export class ThemeSwitcher extends LitElement {
       document.documentElement.setAttribute('data-theme', this.current);
     }
     this._userChose = !!localStorage.getItem('theme');
+    // Reveal the theme buttons now that the correct state is known
+    this.setAttribute('ready', '');
   }
 
   disconnectedCallback() {
@@ -288,6 +309,7 @@ export class ThemeSwitcher extends LitElement {
           (t) => html`
             <button
               role="radio"
+              part="btn btn-${t.id}"
               aria-checked=${String(this._isActive(t.id))}
               class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleClick(t.id)}
@@ -305,6 +327,7 @@ export class ThemeSwitcher extends LitElement {
         ${ThemeSwitcher.themes.map(
           (t) => html`
             <button
+              part="menu-btn menu-btn-${t.id}"
               class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleDropdownClick(t.id)}
             >${this._renderLabel(t)}</button>
