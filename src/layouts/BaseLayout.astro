@@ -136,6 +136,35 @@ const termPath = pathMap[currentPath] || '~';
     background: var(--term-surface-hover, #222);
   }
 
+  /*
+   * Icon display custom properties — inherited into Shadow DOM.
+   * Controls which sun/moon SVG is visible based on the active theme.
+   * For Code themes: explicitly set based on light/dark variant.
+   * For other themes: use system preference via media query.
+   */
+  html[data-theme="modern-minimal"] {
+    --ts-sun-display: none;
+    --ts-moon-display: inline;
+  }
+  html[data-theme="modern-minimal-light"] {
+    --ts-sun-display: inline;
+    --ts-moon-display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-theme="cyberpunk-neon"],
+    html[data-theme="green-phosphor"] {
+      --ts-sun-display: none;
+      --ts-moon-display: inline;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    html[data-theme="cyberpunk-neon"],
+    html[data-theme="green-phosphor"] {
+      --ts-sun-display: inline;
+      --ts-moon-display: none;
+    }
+  }
+
   .terminal-footer {
     padding: 0.75rem var(--terminal-padding);
     border-top: 1px solid var(--term-border);
