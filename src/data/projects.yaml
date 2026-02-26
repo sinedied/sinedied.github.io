@@ -12,6 +12,37 @@ active:
   - repo: sinedied/run-on-output
   - repo: sinedied/grumpydev-mcp
   - repo: sinedied/devto-cli
+  - repo: sinedied/imapforward
+  - repo: sinedied/freevibes
+  - repo: sinedied/kanbrawl
+  - repo: sinedied/semantic-release-npm-github
+  - repo: sinedied/amv
+  - repo: sinedied/comic-tools
+  - repo: sinedied/nanolive-setup
+  - repo: sinedied/lantern-vscode-extension
+  - repo: sinedied/run-on-output
+  - repo: sinedied/vscode-win-xp-theme
+  - repo: sinedied/dmx-hue
+  - repo: sinedied/mini-scraper
+  - repo: sinedied/grumpydev-mcp
+  - repo: sinedied/esp-led-timer
+  - repo: sinedied/svelte-web-components-template
+  - repo: sinedied/publish-devto
+  - repo: sinedied/swag-demo
+  - repo: sinedied/fuzz-run
+  - repo: sinedied/nano-gateway
+  - repo: sinedied/pi-midi-host
+  - repo: sinedied/ystats
 
 legacy:
   - repo: sinedied/ngx-foldable
+  - repo: sinedied/ollamazure
+  - repo: sinedied/azure-checkin
+  - repo: sinedied/azd-infra
+  - repo: sinedied/cxa-track
+  - repo: sinedied/teams-angular
+  - repo: sinedied/ng-lite-todo
+  - repo: sinedied/ng-lite-starter
+  - repo: sinedied/surface-duo-photo-gallery
+  - repo: sinedied/hadra-trance-festival
+  - repo: sinedied/catfacts
