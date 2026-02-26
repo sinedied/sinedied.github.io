@@ -4,7 +4,7 @@ import { customElement, state } from 'lit/decorators.js';
 
 /**
  * Theme switcher component — selects between terminal themes.
- * Stores preference in localStorage and applies data-theme attribute.
+ * Stores preference in localStorage only when user explicitly changes theme.
  * Collapses into a dropdown on small screens.
  */
 @customElement('theme-switcher')
@@ -60,6 +60,21 @@ export class ThemeSwitcher extends LitElement {
     button:focus-visible {
       outline: 2px solid var(--term-accent, #0f0);
       outline-offset: 1px;
+    }
+
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 0;
+      vertical-align: middle;
+      position: relative;
+      top: -0.5px;
+    }
+
+    .icon svg {
+      width: 0.85em;
+      height: 0.85em;
+      fill: currentColor;
     }
 
     /* ── Dropdown mode (mobile) ── */
@@ -134,14 +149,15 @@ export class ThemeSwitcher extends LitElement {
   `;
 
   static themes = [
-    { id: 'green-phosphor', label: 'Phosphor' },
-    { id: 'amber-phosphor', label: 'Amber' },
-    { id: 'modern-minimal', label: 'Minimal' },
+    { id: 'modern-minimal', label: 'Code' },
     { id: 'cyberpunk-neon', label: 'Neon' },
+    { id: 'green-phosphor', label: 'Phosphor' },
   ] as const;
 
-  @state() current = 'green-phosphor';
+  @state() current = 'modern-minimal';
   @state() private _dropdownOpen = false;
+  private _userChose = false;
+  private _mediaQuery: MediaQueryList | null = null;
 
   private _closeHandler = (e: Event) => {
     const path = e.composedPath();
@@ -150,14 +166,23 @@ export class ThemeSwitcher extends LitElement {
     }
   };
 
+  private _systemThemeHandler = (e: MediaQueryListEvent) => {
+    // Only react to system changes if user hasn't explicitly chosen a theme
+    if (localStorage.getItem('theme')) return;
+    const themeId = e.matches ? 'modern-minimal' : 'modern-minimal-light';
+    document.documentElement.setAttribute('data-theme', themeId);
+    this.current = themeId;
+  };
+
   connectedCallback() {
     super.connectedCallback();
     document.addEventListener('click', this._closeHandler);
+    this._mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this._mediaQuery.addEventListener('change', this._systemThemeHandler);
   }
 
   firstUpdated() {
     // Read the theme from the DOM attribute (already set by the blocking <head> script)
-    // This runs after Lit hydration is complete, so state updates will trigger re-renders.
     const applied = document.documentElement.getAttribute('data-theme');
     if (applied) {
       this.current = applied;
@@ -167,20 +192,27 @@ export class ThemeSwitcher extends LitElement {
         this.current = stored;
       } else {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        this.current = prefersDark ? 'green-phosphor' : 'modern-minimal-light';
+        this.current = prefersDark ? 'modern-minimal' : 'modern-minimal-light';
       }
-      this._applyTheme(this.current);
+      document.documentElement.setAttribute('data-theme', this.current);
     }
+    this._userChose = !!localStorage.getItem('theme');
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener('click', this._closeHandler);
+    this._mediaQuery?.removeEventListener('change', this._systemThemeHandler);
   }
 
-  private _applyTheme(themeId: string) {
+  private _applyTheme(themeId: string, persist = true) {
     document.documentElement.setAttribute('data-theme', themeId);
-    localStorage.setItem('theme', themeId);
+    if (persist) {
+      localStorage.setItem('theme', themeId);
+    } else {
+      localStorage.removeItem('theme');
+    }
+    this._userChose = persist;
     this.current = themeId;
   }
 
@@ -195,6 +227,9 @@ export class ThemeSwitcher extends LitElement {
         this._applyTheme('modern-minimal');
         return;
       }
+      // Coming from another theme: use system preference, don't persist
+      this._applyTheme(this._prefersDark ? 'modern-minimal' : 'modern-minimal-light', false);
+      return;
     }
     this._applyTheme(themeId);
   }
@@ -221,6 +256,30 @@ export class ThemeSwitcher extends LitElement {
       (themeId === 'modern-minimal' && this.current === 'modern-minimal-light');
   }
 
+  private get _prefersDark(): boolean {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  private get _codeIsLight(): boolean {
+    if (this._isActive('modern-minimal')) {
+      return this.current === 'modern-minimal-light';
+    }
+    return !this._prefersDark;
+  }
+
+  private get _codeIcon() {
+    return this._codeIsLight
+      ? html`<svg viewBox="0 0 24 24"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></svg>`
+      : html`<svg viewBox="0 0 24 24"><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.98 6.98 0 0 0 10 7z"/></svg>`;
+  }
+
+  private _renderLabel(theme: typeof ThemeSwitcher.themes[number]) {
+    if (theme.id === 'modern-minimal') {
+      return html`${theme.label} <span class="icon">${this._codeIcon}</span>`;
+    }
+    return theme.label;
+  }
+
   render() {
     return html`
       <span class="label">theme:</span>
@@ -232,7 +291,7 @@ export class ThemeSwitcher extends LitElement {
               aria-checked=${String(this._isActive(t.id))}
               class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleClick(t.id)}
-            >${t.label}</button>
+            >${this._renderLabel(t)}</button>
           `
         )}
       </div>
@@ -248,7 +307,7 @@ export class ThemeSwitcher extends LitElement {
             <button
               class="${this._isActive(t.id) ? 'active' : ''}"
               @click=${() => this._handleDropdownClick(t.id)}
-            >${t.label}</button>
+            >${this._renderLabel(t)}</button>
           `
         )}
       </div>

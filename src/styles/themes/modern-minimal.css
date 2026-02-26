@@ -1,22 +1,22 @@
 /* ═══════════════════════════════════════════════════════
-   THEME: Modern Minimal — Clean, no glow
+   THEME: Modern Minimal — Inspired by VS Code Dark+ / Light+
    Respects prefers-color-scheme for light/dark
    ═══════════════════════════════════════════════════════ */
 
-/* ── Dark mode (default) ───────────────────────────── */
+/* ── Dark mode (VS Code Dark+) ─────────────────────── */
 [data-theme="modern-minimal"] {
-  --term-bg: #1a1a2e;
-  --term-fg: #e0e0e8;
-  --term-accent: #7c8aff;
-  --term-dim: #5a5a7a;
-  --term-border: #2a2a44;
-  --term-glow: rgba(124, 138, 255, 0.15);
-  --term-error: #ff6b6b;
-  --term-warning: #ffd93d;
-  --term-success: #6bcb77;
-  --term-surface: #16162a;
-  --term-surface-hover: #22223a;
-  --term-fg-rgb: 224, 224, 232;
+  --term-bg: #1e1e1e;
+  --term-fg: #d4d4d4;
+  --term-accent: #569cd6;
+  --term-dim: #808080;
+  --term-border: #3c3c3c;
+  --term-glow: rgba(86, 156, 214, 0.12);
+  --term-error: #f44747;
+  --term-warning: #dcdcaa;
+  --term-success: #4ec9b0;
+  --term-surface: #252526;
+  --term-surface-hover: #2d2d2d;
+  --term-fg-rgb: 212, 212, 212;
 
   --scanline-opacity: 0;
   --glow-intensity: 0;
@@ -24,10 +24,11 @@
 
 [data-theme="modern-minimal"] body {
   text-shadow: none;
+  background: #151515;
 }
 
 [data-theme="modern-minimal"] .terminal-window {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   border-color: var(--term-border);
 }
 
@@ -37,20 +38,20 @@
   text-underline-offset: 3px;
 }
 
-/* ── Light mode ─────────────────────────────────────── */
+/* ── Light mode (VS Code Light+) ───────────────────── */
 [data-theme="modern-minimal-light"] {
-  --term-bg: #f5f5f0;
-  --term-fg: #2a2a3a;
-  --term-accent: #4a56c8;
-  --term-dim: #8888a0;
-  --term-border: #d0d0da;
-  --term-glow: rgba(74, 86, 200, 0.1);
-  --term-error: #dc3545;
-  --term-warning: #e6a800;
-  --term-success: #28a745;
-  --term-surface: #eaeae5;
-  --term-surface-hover: #e0e0db;
-  --term-fg-rgb: 42, 42, 58;
+  --term-bg: #ffffff;
+  --term-fg: #1e1e1e;
+  --term-accent: #0451a5;
+  --term-dim: #767676;
+  --term-border: #d4d4d4;
+  --term-glow: rgba(4, 81, 165, 0.08);
+  --term-error: #cd3131;
+  --term-warning: #795e26;
+  --term-success: #0451a5;
+  --term-surface: #f3f3f3;
+  --term-surface-hover: #e8e8e8;
+  --term-fg-rgb: 30, 30, 30;
 
   --scanline-opacity: 0;
   --glow-intensity: 0;
@@ -58,10 +59,11 @@
 
 [data-theme="modern-minimal-light"] body {
   text-shadow: none;
+  background: #e8e8e8;
 }
 
 [data-theme="modern-minimal-light"] .terminal-window {
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
   border-color: var(--term-border);
 }
 

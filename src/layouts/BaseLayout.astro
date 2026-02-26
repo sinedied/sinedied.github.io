@@ -4,7 +4,6 @@ import '@fontsource/jetbrains-mono/700.css';
 import '../styles/base.css';
 import '../styles/animations.css';
 import '../styles/themes/green-phosphor.css';
-import '../styles/themes/amber-phosphor.css';
 import '../styles/themes/modern-minimal.css';
 import '../styles/themes/cyberpunk-neon.css';
 import { ThemeSwitcher } from '../components/theme-switcher.ts';
@@ -56,12 +55,12 @@ const termPath = pathMap[currentPath] || '~';
     {/* Blocking script to apply theme before paint — prevents flash */}
     <script is:inline>
       (function() {
-        const stored = localStorage.getItem('theme');
+        var stored = localStorage.getItem('theme');
         if (stored) {
           document.documentElement.setAttribute('data-theme', stored);
         } else {
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.setAttribute('data-theme', prefersDark ? 'green-phosphor' : 'modern-minimal-light');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'modern-minimal' : 'modern-minimal-light');
         }
       })();
     </script>
