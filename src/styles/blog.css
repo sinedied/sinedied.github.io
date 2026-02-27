@@ -111,11 +111,35 @@
 }
 
 .prose li > input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--term-border);
+  border-radius: 3px;
+  background: transparent;
   margin-right: var(--space-xs);
-  accent-color: var(--term-accent);
   vertical-align: middle;
   position: relative;
   top: -1px;
+  cursor: default;
+}
+
+.prose li > input[type="checkbox"]:checked {
+  background: var(--term-accent);
+  border-color: var(--term-accent);
+}
+
+.prose li > input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: -1px;
+  left: 1px;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--term-bg);
+  font-weight: 700;
+}
 }
 
 /* ── Blockquotes ────────────────────────────────────── */
