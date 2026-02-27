@@ -122,6 +122,9 @@ export class TerminalInput extends LitElement {
   /** Output text to display inline after the input */
   @state() private _output = '';
 
+  /** Whether input is empty (for margin offset) */
+  @state() private _isEmpty = true;
+
   @query('input') private _input!: HTMLInputElement;
 
   private _history: string[] = [];
@@ -160,7 +163,7 @@ export class TerminalInput extends LitElement {
           @input=${this._onInput}
           @beforeinput=${this._onBeforeInput}
           @click=${this._onClick}
-          class="empty"
+          class=${this._isEmpty ? 'empty' : ''}
         /><span class="cursor"></span><span class="input-fill"></span>
       </span>
       ${this._output ? html`<span class="output">${this._output}</span>` : ''}
@@ -209,17 +212,14 @@ export class TerminalInput extends LitElement {
   private _resizeInput() {
     if (this._input) {
       this._input.style.width = `${Math.max(1, this._input.value.length)}ch`;
-      this._input.classList.toggle('empty', this._input.value.length === 0);
+      this._isEmpty = this._input.value.length === 0;
     }
   }
 
-  /** Reset input and sync Android IME state */
+  /** Reset input */
   private _resetInput() {
     if (this._input) {
-      // Select all text then delete via IME-aware API to sync Android's IME state
-      this._input.select();
-      this._input.setRangeText('', 0, this._input.value.length, 'start');
-      this._input.selectionStart = this._input.selectionEnd = 0;
+      this._input.value = '';
       this._resizeInput();
     }
   }
