@@ -130,6 +130,7 @@ export class TerminalInput extends LitElement {
     '/': '/',
     'about': '/',
     'home': '/',
+    'blog': '/blog/',
     'projects': '/projects/',
     'events': '/events/',
     'music': '/music/',
@@ -253,7 +254,7 @@ export class TerminalInput extends LitElement {
 
     // ── ls ──
     if (cmd === 'ls') {
-      this._output = 'about  projects  events  music';
+      this._output = 'about  blog  projects  events  music';
       return;
     }
 

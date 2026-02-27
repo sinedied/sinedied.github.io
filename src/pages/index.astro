@@ -2,8 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig, socialIcons, type SocialKey } from '../lib/config';
 import { TypingText } from '../components/typing-text.ts';
+import { BlogPostItem } from '../components/blog-post-item.ts';
+import { getCollection } from 'astro:content';
+import { getBlogSlug } from '../lib/blog';
 
 const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][];
+
+const recentPosts = (await getCollection('blog', ({ data }) => data.published === true))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
 ---
 
 <BaseLayout>
@@ -68,6 +83,27 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
         ))}
       </div>
     </div>
+
+    {/* Recent blog posts */}
+    {recentPosts.length > 0 && (
+      <div class="recent-posts-section">
+        <div class="section-header">Recent Posts</div>
+        <div class="recent-posts">
+          {recentPosts.map((post, i) => (
+            <BlogPostItem
+              client:load
+              class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
+              date={formatDate(post.data.date)}
+              title={post.data.title}
+              href={`/blog/${getBlogSlug(post)}/`}
+              description={post.data.description}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+        <a class="view-all-link" href="/blog/">View all posts &rarr;</a>
+      </div>
+    )}
 
   </div>
 </BaseLayout>
@@ -188,5 +224,28 @@ const socialEntries = Object.entries(siteConfig.social) as [SocialKey, string][]
     .social-links {
       gap: var(--space-xs) var(--space-sm);
     }
+  }
+
+  /* ── Recent Posts ──────────────────────── */
+  .recent-posts-section {
+    margin-top: var(--space-xl);
+  }
+
+  .recent-posts {
+    padding-left: var(--space-sm);
+  }
+
+  .view-all-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    color: var(--term-dim);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .view-all-link:hover {
+    color: var(--term-accent);
+    text-shadow: none;
   }
 </style>

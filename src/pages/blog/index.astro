@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { BlogPostItem } from '../../components/blog-post-item.ts';
+import { getBlogSlug } from '../../lib/blog';
+
+const posts = (await getCollection('blog', ({ data }) => data.published === true))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<BaseLayout title="Blog — Yohan Lasorsa" description="Blog posts by Yohan Lasorsa about JavaScript, AI, Cloud, and Open Source.">
+  <div class="blog-content fade-in fade-in--delay-3">
+    <div class="section-header">Blog</div>
+
+    {posts.length === 0 ? (
+      <p class="text-dim">No posts yet. Check back soon!</p>
+    ) : (
+      <div class="post-list">
+        {posts.map((post, i) => (
+          <BlogPostItem
+            client:load
+            class={`fade-in fade-in--delay-${Math.min(i + 1, 7)}`}
+            date={formatDate(post.data.date)}
+            title={post.data.title}
+            href={`/blog/${getBlogSlug(post)}/`}
+            description={post.data.description}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-content {
+    margin-top: var(--space-md);
+  }
+
+  .post-list {
+    padding-left: var(--space-sm);
+  }
+</style>

@@ -1,0 +1,290 @@
+/* ═══════════════════════════════════════════════════════
+   BLOG PROSE STYLES — Markdown content rendering
+   Terminal-themed styling for rendered Markdown HTML.
+   Uses --term-* CSS custom properties for theme compat.
+   ═══════════════════════════════════════════════════════ */
+
+.prose {
+  line-height: 1.8;
+  color: var(--term-fg);
+  font-size: var(--font-size-md);
+  max-width: 720px;
+}
+
+/* ── Headings ───────────────────────────────────────── */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--term-accent);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.prose h1::before,
+.prose h2::before,
+.prose h3::before,
+.prose h4::before,
+.prose h5::before,
+.prose h6::before {
+  color: var(--term-dim);
+}
+
+.prose h1 { font-size: var(--font-size-xl); }
+.prose h1::before { content: '# '; }
+
+.prose h2 { font-size: var(--font-size-lg); border-bottom: 1px solid var(--term-border); padding-bottom: var(--space-xs); }
+.prose h2::before { content: '## '; }
+
+.prose h3 { font-size: var(--font-size-md); }
+.prose h3::before { content: '### '; }
+
+.prose h4 { font-size: var(--font-size-sm); }
+.prose h4::before { content: '#### '; }
+
+.prose h5,
+.prose h6 { font-size: var(--font-size-xs); }
+
+/* First heading after title — reduce top margin */
+.prose > h1:first-child,
+.prose > h2:first-child {
+  margin-top: 0;
+}
+
+/* ── Paragraphs ─────────────────────────────────────── */
+.prose p {
+  margin-bottom: var(--space-md);
+}
+
+/* ── Links ──────────────────────────────────────────── */
+.prose a {
+  color: var(--term-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--term-border);
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.prose a:hover {
+  color: var(--term-fg);
+  text-decoration-color: var(--term-accent);
+  text-shadow: 0 0 8px var(--term-glow);
+}
+
+/* ── Lists ──────────────────────────────────────────── */
+.prose ul,
+.prose ol {
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-lg);
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li {
+  margin-bottom: var(--space-xs);
+  line-height: 1.7;
+}
+
+.prose li > ul,
+.prose li > ol {
+  margin-top: var(--space-xs);
+  margin-bottom: 0;
+}
+
+/* GFM task lists */
+.prose ul:has(> li > input[type="checkbox"]) {
+  list-style: none;
+  padding-left: var(--space-sm);
+}
+
+.prose li > input[type="checkbox"] {
+  margin-right: var(--space-xs);
+  accent-color: var(--term-accent);
+}
+
+/* ── Blockquotes ────────────────────────────────────── */
+.prose blockquote {
+  border-left: 3px solid var(--term-accent);
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0;
+  color: var(--term-dim);
+  background: var(--term-surface);
+  border-radius: 0 3px 3px 0;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Code (inline) ──────────────────────────────────── */
+.prose :not(pre) > code {
+  background: var(--term-surface);
+  color: var(--term-accent);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid var(--term-border);
+}
+
+/* ── Code blocks (Shiki) ────────────────────────────── */
+.prose pre {
+  background: var(--term-surface) !important;
+  border: 1px solid var(--term-border);
+  border-radius: 4px;
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  overflow-x: auto;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+/* Shiki dual-theme: map CSS variables to the active light/dark mode.
+   The terminal themes are all dark except modern-minimal-light. */
+html[data-theme="modern-minimal-light"] .prose pre span {
+  color: var(--shiki-light) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+html:not([data-theme="modern-minimal-light"]) .prose pre span {
+  color: var(--shiki-dark) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ── Images ─────────────────────────────────────────── */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--term-border);
+  border-radius: 4px;
+  margin: var(--space-md) 0;
+}
+
+/* ── Horizontal Rules ───────────────────────────────── */
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--term-border);
+  margin: var(--space-xl) 0;
+}
+
+/* ── Tables (GFM) ───────────────────────────────────── */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-sm);
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--term-border);
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+}
+
+.prose th {
+  background: var(--term-surface);
+  color: var(--term-accent);
+  font-weight: 700;
+}
+
+.prose tr:nth-child(even) {
+  background: var(--term-surface);
+}
+
+/* ── Details / Summary ──────────────────────────────── */
+.prose details {
+  border: 1px solid var(--term-border);
+  border-radius: 4px;
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0;
+}
+
+.prose summary {
+  cursor: pointer;
+  color: var(--term-accent);
+  font-weight: 700;
+}
+
+/* ── Kbd ────────────────────────────────────────────── */
+.prose kbd {
+  background: var(--term-surface);
+  border: 1px solid var(--term-border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 0.85em;
+  box-shadow: 0 1px 0 var(--term-border);
+}
+
+/* ── Strikethrough (GFM) ────────────────────────────── */
+.prose del {
+  color: var(--term-dim);
+  text-decoration: line-through;
+}
+
+/* ── Strong / Emphasis ──────────────────────────────── */
+.prose strong {
+  color: var(--term-fg);
+  font-weight: 700;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════
+   READER MODE — activated via data-reader-mode attribute
+   Disables CRT effects and switches to a reading font.
+   ═══════════════════════════════════════════════════════ */
+
+html[data-reader-mode] {
+  /* Kill scanlines and glow */
+  --scanline-opacity: 0 !important;
+  --glow-intensity: 0 !important;
+}
+
+html[data-reader-mode] .terminal-window::after {
+  display: none;
+}
+
+html[data-reader-mode] .crt-glow {
+  display: none;
+}
+
+html[data-reader-mode] .scanline-sweep::before {
+  display: none;
+}
+
+html[data-reader-mode] .terminal-content {
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+html[data-reader-mode] .prose pre,
+html[data-reader-mode] .prose code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+}

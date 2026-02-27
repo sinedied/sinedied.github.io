@@ -23,6 +23,7 @@ const currentPath = Astro.url.pathname;
 
 const navItems = [
   { href: '/', label: 'about', path: '/' },
+  { href: '/blog/', label: 'blog', path: '/blog' },
   { href: '/projects/', label: 'projects', path: '/projects' },
   { href: '/events/', label: 'events', path: '/events' },
   { href: '/music/', label: 'music', path: '/music' },
@@ -30,6 +31,8 @@ const navItems = [
 
 const pathMap: Record<string, string> = {
   '/': '~',
+  '/blog/': '~/blog',
+  '/blog': '~/blog',
   '/projects/': '~/projects',
   '/projects': '~/projects',
   '/events/': '~/events',
@@ -41,7 +44,7 @@ const pathMap: Record<string, string> = {
   '/help/': '~/help',
   '/help': '~/help',
 };
-const termPath = pathMap[currentPath] || '~';
+const termPath = pathMap[currentPath] || (currentPath.startsWith('/blog/') ? '~/blog' : '~');
 ---
 
 <html lang="en">
@@ -59,6 +62,8 @@ const termPath = pathMap[currentPath] || '~';
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⌨</text></svg>" />
+    <link rel="alternate" type="application/rss+xml" title="Yohan Lasorsa — Blog" href="/rss.xml" />
+    <slot name="head" />
 
     {/* Blocking script to apply theme before paint — prevents flash */}
     <script is:inline>
@@ -78,6 +83,17 @@ const termPath = pathMap[currentPath] || '~';
           document.documentElement.classList.add('crt-skip');
         } else {
           sessionStorage.setItem('crt-done', '1');
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        var p = location.pathname;
+        if (p.startsWith('/blog/') && p.split('/').filter(Boolean).length > 1) {
+          var rm = localStorage.getItem('reader-mode');
+          if (rm === null || rm !== 'false') {
+            document.documentElement.setAttribute('data-reader-mode', '');
+          }
         }
       })();
     </script>
@@ -102,7 +118,7 @@ const termPath = pathMap[currentPath] || '~';
         {navItems.map((item) => (
           <a
             href={item.href}
-            class={currentPath === item.href || currentPath === item.path ? 'active' : ''}
+            class={(currentPath === item.href || currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path + '/'))) ? 'active' : ''}
           >{item.label}</a>
         ))}
       </nav>
