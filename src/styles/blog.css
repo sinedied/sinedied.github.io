@@ -200,18 +200,16 @@
 .prose th,
 .prose td {
   border: 1px solid var(--term-border);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 6px 13px;
   text-align: left;
 }
 
 .prose th {
-  background: var(--term-surface);
-  color: var(--term-accent);
-  font-weight: 700;
+  font-weight: 600;
 }
 
-.prose tr:nth-child(even) {
-  background: var(--term-surface);
+.prose tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--term-surface) 50%, transparent);
 }
 
 /* ── Details / Summary ──────────────────────────────── */

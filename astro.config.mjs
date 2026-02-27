@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import lit from '@astrojs/lit';
 import remarkGfm from 'remark-gfm';
+import rehypeExternalLinks from 'rehype-external-links';
 
 export default defineConfig({
   site: 'https://sinedied.github.io',
@@ -9,6 +10,9 @@ export default defineConfig({
   integrations: [lit()],
   markdown: {
     remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+    ],
     shikiConfig: {
       theme: 'github-dark-default',
     },
