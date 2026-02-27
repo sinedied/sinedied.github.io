@@ -183,8 +183,15 @@ img {
   padding: var(--space-sm) var(--terminal-padding);
   border-bottom: 1px solid var(--term-border);
   background: var(--term-surface);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.terminal-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .terminal-nav a {
@@ -193,6 +200,8 @@ img {
   font-size: var(--font-size-sm);
   border-radius: 3px;
   transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .terminal-nav a:hover {
