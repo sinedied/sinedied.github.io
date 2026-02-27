@@ -22,7 +22,7 @@ export const siteConfig = {
 
   meta: {
     title: 'Yohan Lasorsa — Principal Developer Advocate',
-    description: 'Personal website of Yohan Lasorsa, Principal Developer Advocate at Microsoft. Open source, JavaScript, AI, Cloud, and more.',
+    description: 'Developer, speaker, open source enthusiast, and psytrance-powered synth tinkerer. Talks about JavaScript, AI, Cloud, and whatever shiny thing caught my eye.',
     url: 'https://sinedied.github.io',
   },
 } as const;
