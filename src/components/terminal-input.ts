@@ -122,8 +122,6 @@ export class TerminalInput extends LitElement {
   /** Output text to display inline after the input */
   @state() private _output = '';
 
-  @state() private _mirror = '';
-
   @query('input') private _input!: HTMLInputElement;
 
   private _history: string[] = [];
@@ -161,7 +159,7 @@ export class TerminalInput extends LitElement {
           @keydown=${this._onKeydown}
           @input=${this._onInput}
           @click=${this._onClick}
-          class=${this._mirror ? '' : 'empty'}
+          class="empty"
         /><span class="cursor"></span><span class="input-fill"></span>
       </span>
       ${this._output ? html`<span class="output">${this._output}</span>` : ''}
@@ -188,9 +186,20 @@ export class TerminalInput extends LitElement {
 
   private _resizeInput() {
     if (this._input) {
-      const len = this._input.value.length;
-      this._mirror = this._input.value;
-      this._input.style.width = `${Math.max(1, len)}ch`;
+      this._input.style.width = `${Math.max(1, this._input.value.length)}ch`;
+      this._input.classList.toggle('empty', this._input.value.length === 0);
+    }
+  }
+
+  /** Reset IME state — needed on Android after clearing input */
+  private _resetInput() {
+    if (this._input) {
+      this._input.value = '';
+      this._input.style.width = '1ch';
+      this._input.classList.add('empty');
+      // Blur/focus cycle resets Android IME state
+      this._input.blur();
+      this._input.focus();
     }
   }
 
@@ -198,8 +207,7 @@ export class TerminalInput extends LitElement {
     if (e.key === 'Enter') {
       e.preventDefault();
       const raw = this._input.value.trim();
-      this._input.value = '';
-      this._resizeInput();
+      this._resetInput();
       this._output = '';
       this._hasError = false;
 
