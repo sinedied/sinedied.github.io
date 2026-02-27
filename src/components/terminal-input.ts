@@ -123,6 +123,7 @@ export class TerminalInput extends LitElement {
   private _history: string[] = [];
   private _historyIndex = -1;
   private _loadTime = Date.now();
+  private _composing = false;
 
   /** Map of page aliases to their hrefs */
   private readonly _pages: Record<string, string> = {
@@ -154,6 +155,8 @@ export class TerminalInput extends LitElement {
           aria-label="Terminal input"
           @keydown=${this._onKeydown}
           @input=${this._onInput}
+          @compositionstart=${() => this._composing = true}
+          @compositionend=${this._onCompositionEnd}
           @click=${this._onClick}
         /><span class="cursor"></span><span class="input-fill"></span>
       </span>
@@ -173,6 +176,13 @@ export class TerminalInput extends LitElement {
 
   /** Resize input to fit its content */
   private _onInput() {
+    if (!this._composing) {
+      this._resizeInput();
+    }
+  }
+
+  private _onCompositionEnd() {
+    this._composing = false;
     this._resizeInput();
   }
 
