@@ -92,6 +92,7 @@ export class EventItem extends LitElement {
   @property({ type: String, attribute: 'co-speaker' }) coSpeaker = '';
   @property({ type: String }) youtube = '';
   @property({ type: String }) slides = '';
+  @property({ type: String }) workshop = '';
 
   render() {
     return html`
@@ -101,10 +102,11 @@ export class EventItem extends LitElement {
         <span class="separator">▸</span>
         <span class="title">${this.title}</span>
         ${this.coSpeaker ? html`<span class="co-speaker">${this.coSpeaker}</span>` : ''}
-        ${this.youtube || this.slides ? html`
+        ${this.youtube || this.slides || this.workshop ? html`
           <span class="links">
             ${this.youtube ? html`<a class="link" href=${this.youtube} target="_blank" rel="noopener noreferrer">▶ video</a>` : ''}
             ${this.slides ? html`<a class="link" href=${this.slides} target="_blank" rel="noopener noreferrer">◧ slides</a>` : ''}
+            ${this.workshop ? html`<a class="link" href=${this.workshop} target="_blank" rel="noopener noreferrer">⚡ workshop</a>` : ''}
           </span>
         ` : ''}
       </div>

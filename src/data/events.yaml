@@ -1,28 +1,25 @@
 # ═══════════════════════════════════════════════════════
 # Events — Conference talks & presentations
 # Listed from most recent to oldest.
-# Fields: date, conference, title, coSpeaker?, youtube?, slides?
+# Fields: date, conference, title, coSpeaker?, youtube?, slides?, workshop?
 # ═══════════════════════════════════════════════════════
 
 - date: 2026-01-30
   conference: Azure Cosmos DB TV
   title: "From Burger to Bots: Agentic Apps with Cosmos DB and LangChain.js"
-  youtube: https://www.youtube.com/watch?v=7faP
+  youtube: https://www.youtube.com/watch?v=7faP1YPOFCA
 
 - date: 2025-12-10
   conference: OSS AI Summit
-  title: Building with LangChain
+  title: "MCP in Action: Powering Single & Multi-Agent Systems with LangChain.js"
+  youtube: https://www.youtube.com/watch?v=_n0KBjDYgqY
 
 - date: 2025-10-23
   conference: LangChain Livestream
   title: "LangChain v1: What JS and Python developers need to know"
   coSpeaker: Marlene
-  youtube: https://www.youtube.com/watch?v=slJl
+  youtube: https://www.youtube.com/watch?v=slJlB-woA4Q
 
-- date: 2025-09-18
-  conference: VS Code Dev Days
-  title: VS Code & GitHub Copilot Workshop
-  location: Paris
 
 - date: 2025-05-12
   conference: Microsoft Reactor

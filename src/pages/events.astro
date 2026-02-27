@@ -13,6 +13,7 @@ interface EventEntry {
   coSpeaker?: string;
   youtube?: string;
   slides?: string;
+  workshop?: string;
   location?: string;
 }
 
@@ -55,6 +56,7 @@ function formatDate(dateStr: string): string {
               co-speaker={event.coSpeaker ?? ''}
               youtube={event.youtube ?? ''}
               slides={event.slides ?? ''}
+              workshop={event.workshop ?? ''}
             />
           ))}
         </div>
