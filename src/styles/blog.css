@@ -123,8 +123,8 @@
   border-left: 3px solid var(--term-accent);
   padding: var(--space-sm) var(--space-md);
   margin: var(--space-md) 0;
-  color: var(--term-dim);
-  background: var(--term-surface);
+  color: var(--term-fg);
+  background: color-mix(in srgb, var(--term-surface) 50%, transparent);
   border-radius: 0 3px 3px 0;
 }
 
@@ -134,7 +134,7 @@
 
 /* ── Code (inline) ──────────────────────────────────── */
 .prose :not(pre) > code {
-  background: var(--term-surface);
+  background: color-mix(in srgb, var(--term-surface) 50%, transparent);
   color: var(--term-accent);
   padding: 2px 6px;
   border-radius: 3px;
