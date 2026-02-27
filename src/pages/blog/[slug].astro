@@ -40,6 +40,18 @@ const canonicalUrl = post.data.canonical_url;
 >
   <Fragment slot="head">
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <script is:inline>
+      // Scroll to anchor after page load (animations may delay initial scroll)
+      if (location.hash) {
+        const hash = location.hash;
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const el = document.querySelector(hash);
+            if (el) el.scrollIntoView();
+          }, 100);
+        });
+      }
+    </script>
   </Fragment>
 
   <article class="blog-post fade-in fade-in--delay-3">
