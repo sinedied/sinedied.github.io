@@ -122,9 +122,6 @@ export class TerminalInput extends LitElement {
   /** Output text to display inline after the input */
   @state() private _output = '';
 
-  /** Whether input is empty (for margin offset) */
-  @state() private _isEmpty = true;
-
   @query('input') private _input!: HTMLInputElement;
 
   private _history: string[] = [];
@@ -163,7 +160,7 @@ export class TerminalInput extends LitElement {
           @input=${this._onInput}
           @beforeinput=${this._onBeforeInput}
           @click=${this._onClick}
-          class=${this._isEmpty ? 'empty' : ''}
+          class="empty"
         /><span class="cursor"></span><span class="input-fill"></span>
       </span>
       ${this._output ? html`<span class="output">${this._output}</span>` : ''}
@@ -180,10 +177,13 @@ export class TerminalInput extends LitElement {
     this.addEventListener('click', this._onClick.bind(this));
   }
 
-  /** Resize input to fit its content */
+  /** Resize input — purely imperative, no Lit re-renders */
   private _onInput() {
+    // Clear output imperatively to avoid triggering a Lit re-render
     if (this._output) {
       this._output = '';
+      const outputEl = this.renderRoot.querySelector('.output');
+      if (outputEl) outputEl.remove();
     }
     this._resizeInput();
   }
@@ -212,7 +212,7 @@ export class TerminalInput extends LitElement {
   private _resizeInput() {
     if (this._input) {
       this._input.style.width = `${Math.max(1, this._input.value.length)}ch`;
-      this._isEmpty = this._input.value.length === 0;
+      this._input.classList.toggle('empty', this._input.value.length === 0);
     }
   }
 
