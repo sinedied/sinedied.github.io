@@ -37,6 +37,7 @@ const canonicalUrl = post.data.canonical_url;
 <BaseLayout
   title={`${post.data.title} — Yohan Lasorsa`}
   description={post.data.description}
+  image={post.data.cover_image ?? undefined}
 >
   <Fragment slot="head">
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
