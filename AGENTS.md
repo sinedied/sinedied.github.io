@@ -43,6 +43,7 @@ public/               # Static assets (.nojekyll)
 - All CSS colors use custom properties defined in `src/styles/base.css` and overridden by theme files in `src/styles/themes/`
 - All animations must respect `prefers-reduced-motion: reduce`
 - GitHub API data is fetched at build time in `src/lib/github.ts`; the `GITHUB_TOKEN` env var is used for auth when available
+- GitHub emoji shortcodes (e.g. `:rocket:`, `:runner:`) in project descriptions are converted to Unicode via a custom `emojiMap` in `src/lib/github.ts` using the `replaceEmojiShortcodes()` helper. When a shortcode is not rendering, add the missing entry to `emojiMap` — do **not** install `remark-emoji` or similar plugins
 
 ## Development Workflow
 
@@ -90,3 +91,8 @@ The footer contains an interactive terminal input (`src/components/terminal-inpu
 - **When adding, removing, or modifying commands in `terminal-input.ts`, always update the help page (`src/pages/help.astro`) to stay in sync**
 - CRT shutdown/reboot animations are defined in `src/styles/animations.css` (`crtOff` keyframes, `.crt-shutdown` class)
 - The reboot command synthesizes a Mac-like boot chime via the Web Audio API before replaying the CRT power-on animation
+
+## Maintaining AGENTS.md
+
+- **This file must be kept up to date.** All architectural decisions and important changes (new conventions, added/removed dependencies, structural refactors, new constraints) must be reflected here.
+- When making a change that affects project structure, tooling, constraints, or conventions, update the relevant section of this file as part of the same change.
