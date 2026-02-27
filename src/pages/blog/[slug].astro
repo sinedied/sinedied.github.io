@@ -6,7 +6,7 @@ import { ReaderToggle } from '../../components/reader-toggle.ts';
 import '../../styles/blog.css';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => data.published === true);
+  const posts = await getCollection('blog');
   return posts.map((post) => ({
     params: { slug: getBlogSlug(post) },
     props: { post },
