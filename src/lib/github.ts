@@ -67,6 +67,7 @@ const emojiMap: Record<string, string> = {
   100: '💯', infinity: '♾️', recycle: '♻️',
   hammer_and_wrench: '🛠️', toolbox: '🧰',
   spider: '🕷️', crab: '🦀', dolphin: '🐬',
+  runner: '🏃', walking: '🚶', bike: '🚲',
 };
 
 /**
