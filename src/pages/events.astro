@@ -14,6 +14,7 @@ interface EventEntry {
   youtube?: string;
   slides?: string;
   workshop?: string;
+  language?: string;
   location?: string;
 }
 
@@ -57,6 +58,7 @@ function formatDate(dateStr: string): string {
               youtube={event.youtube ?? ''}
               slides={event.slides ?? ''}
               workshop={event.workshop ?? ''}
+              language={event.language ?? ''}
             />
           ))}
         </div>

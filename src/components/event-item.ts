@@ -84,6 +84,12 @@ export class EventItem extends LitElement {
       outline: 2px solid var(--term-accent, #0f0);
       outline-offset: 1px;
     }
+
+    .lang {
+      font-size: var(--font-size-xs, 0.75rem);
+      color: var(--term-dim, #555);
+      margin-left: 0.15rem;
+    }
   `;
 
   @property({ type: String }) date = '';
@@ -93,6 +99,7 @@ export class EventItem extends LitElement {
   @property({ type: String }) youtube = '';
   @property({ type: String }) slides = '';
   @property({ type: String }) workshop = '';
+  @property({ type: String }) language = '';
 
   render() {
     return html`
@@ -101,6 +108,7 @@ export class EventItem extends LitElement {
         <span class="conference">${this.conference}</span>
         <span class="separator">▸</span>
         <span class="title">${this.title}</span>
+        ${this.language === 'fr' ? html`<span class="lang">🇫🇷</span>` : ''}
         ${this.coSpeaker ? html`<span class="co-speaker">${this.coSpeaker}</span>` : ''}
         ${this.youtube || this.slides || this.workshop ? html`
           <span class="links">
