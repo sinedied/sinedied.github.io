@@ -1,10 +1,11 @@
 ---
 title: Hello World — First Blog Post
-published: true
+published: false
 description: 'Welcome to my blog! This is a test post to verify the blog setup with GFM markdown and syntax highlighting.'
 tags: 'webdev, meta, test'
 cover_image: ''
 date: '2026-02-26T10:00:00Z'
+slug: test
 ---
 
 Welcome to my new blog! This is a sample post to verify everything works. Check out the [Astro documentation](https://docs.astro.build) or visit [GitHub](https://github.com) for more info.
