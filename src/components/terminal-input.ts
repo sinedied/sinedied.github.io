@@ -158,6 +158,7 @@ export class TerminalInput extends LitElement {
           aria-label="Terminal input"
           @keydown=${this._onKeydown}
           @input=${this._onInput}
+          @beforeinput=${this._onBeforeInput}
           @click=${this._onClick}
           class="empty"
         /><span class="cursor"></span><span class="input-fill"></span>
@@ -182,6 +183,27 @@ export class TerminalInput extends LitElement {
       this._output = '';
     }
     this._resizeInput();
+  }
+
+  /**
+   * Handle beforeinput to ensure deletions work on Android.
+   * Android IME sometimes fails to delete when the input is very narrow.
+   */
+  private _onBeforeInput(e: InputEvent) {
+    if (e.inputType === 'deleteContentBackward' && this._input) {
+      const { selectionStart, selectionEnd, value } = this._input;
+      if (selectionStart === selectionEnd && selectionStart !== null && selectionStart > 0) {
+        e.preventDefault();
+        this._input.value = value.slice(0, selectionStart - 1) + value.slice(selectionStart);
+        this._input.selectionStart = this._input.selectionEnd = selectionStart - 1;
+        this._resizeInput();
+      } else if (selectionStart === 0 && selectionEnd === 0 && value.length > 0) {
+        e.preventDefault();
+        this._input.value = value.slice(0, -1);
+        this._input.selectionStart = this._input.selectionEnd = this._input.value.length;
+        this._resizeInput();
+      }
+    }
   }
 
   private _resizeInput() {
