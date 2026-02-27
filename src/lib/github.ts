@@ -119,13 +119,12 @@ const SECTION_ORDER: SectionKey[] = ['featured', 'npm', 'vscode', 'misc', 'legac
 
 export async function getProjectsWithGitHubData(): Promise<RepoInfo[]> {
   const data = loadProjectsYaml();
-  const results: RepoInfo[] = [];
 
-  const fetchAll = async (slugs: string[], section: SectionKey) => {
+  const fetchAll = async (slugs: string[], section: SectionKey): Promise<RepoInfo[]> => {
     const promises = slugs.map(async (slug) => {
       const api = await fetchRepo(slug);
       const [, name] = slug.split('/');
-      results.push({
+      return {
         slug,
         name: name ?? slug,
         description: replaceEmojiShortcodes(api?.description ?? 'No description available'),
@@ -134,19 +133,17 @@ export async function getProjectsWithGitHubData(): Promise<RepoInfo[]> {
         url: api?.html_url ?? `https://github.com/${slug}`,
         language: api?.language ?? null,
         section,
-      });
+      };
     });
-    await Promise.all(promises);
+    return Promise.all(promises);
   };
 
-  await Promise.all(
+  const sectionResults = await Promise.all(
     SECTION_ORDER.map((key) => fetchAll(data[key] ?? [], key)),
   );
 
-  // Sort by stars descending within each section, return in section order
-  return SECTION_ORDER.flatMap((key) =>
-    results.filter((r) => r.section === key).sort((a, b) => b.stars - a.stars),
-  );
+  // Preserve YAML order within each section
+  return sectionResults.flat();
 }
 
 export function timeAgo(dateStr: string): string {
