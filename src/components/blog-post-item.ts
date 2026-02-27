@@ -54,14 +54,6 @@ export class BlogPostItem extends LitElement {
       outline-offset: 2px;
     }
 
-    .description {
-      width: 100%;
-      color: var(--term-dim, #555);
-      font-size: var(--font-size-xs, 0.75rem);
-      line-height: 1.5;
-      padding-left: 0;
-    }
-
     .tags {
       display: inline-flex;
       gap: 0.35rem;
@@ -80,7 +72,6 @@ export class BlogPostItem extends LitElement {
   @property({ type: String }) date = '';
   @property({ type: String }) title = '';
   @property({ type: String }) href = '';
-  @property({ type: String }) description = '';
   @property({ type: String }) tags = '';
 
   render() {
@@ -94,9 +85,6 @@ export class BlogPostItem extends LitElement {
         <a class="title-link" href=${this.href}>${this.title}</a>
         ${tagList.length > 0
           ? html`<span class="tags">${tagList.map((tag) => html`<span class="tag">${tag}</span>`)}</span>`
-          : ''}
-        ${this.description
-          ? html`<div class="description">${this.description}</div>`
           : ''}
       </div>
     `;

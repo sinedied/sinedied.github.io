@@ -96,7 +96,6 @@ function formatDate(date: Date): string {
               date={formatDate(post.data.date)}
               title={post.data.title}
               href={`/blog/${getBlogSlug(post)}/`}
-              description={post.data.description}
               tags={post.data.tags}
             />
           ))}
