@@ -49,9 +49,8 @@
 .prose h5,
 .prose h6 { font-size: var(--font-size-xs); }
 
-/* First heading after title — reduce top margin */
-.prose > h1:first-child,
-.prose > h2:first-child {
+/* First heading after header — reduce top margin */
+.prose > .post-header + h2 {
   margin-top: 0;
 }
 

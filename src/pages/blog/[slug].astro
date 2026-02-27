@@ -47,23 +47,23 @@ const canonicalUrl = post.data.canonical_url;
       <ReaderToggle client:load />
     </div>
 
-    <header class="post-header">
-      <h1 class="post-title">{post.data.title}</h1>
-      <div class="post-meta">
-        <span class="post-date">{formatDate(post.data.date)}</span>
-        <span class="meta-sep">·</span>
-        <span class="post-reading-time">{readingTime} min read</span>
-      </div>
-      {tags.length > 0 && (
-        <div class="post-tags">
-          {tags.map((tag: string) => (
-            <span class="post-tag">{tag}</span>
-          ))}
-        </div>
-      )}
-    </header>
-
     <div class="prose">
+      <header class="post-header">
+        <h1 class="post-title">{post.data.title}</h1>
+        <div class="post-meta">
+          <span class="post-date">{formatDate(post.data.date)}</span>
+          <span class="meta-sep">·</span>
+          <span class="post-reading-time">{readingTime} min read</span>
+        </div>
+        {tags.length > 0 && (
+          <div class="post-tags">
+            {tags.map((tag: string) => (
+              <span class="post-tag">{tag}</span>
+            ))}
+          </div>
+        )}
+      </header>
+
       <Content />
     </div>
   </article>

@@ -7,8 +7,6 @@ cover_image: ''
 date: '2026-02-26T10:00:00Z'
 ---
 
-# Hello World
-
 Welcome to my new blog! This is a sample post to verify everything works.
 
 ## GFM Features
