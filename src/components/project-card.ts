@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -67,6 +67,10 @@ export class ProjectCard extends LitElement {
       padding: 1px 6px;
       border-radius: 3px;
     }
+
+    .emoji {
+      filter: var(--emoji-filter, none);
+    }
   `;
 
   @property({ type: String }) name = '';
@@ -77,6 +81,20 @@ export class ProjectCard extends LitElement {
   @property({ type: String }) language = '';
   @property({ type: String }) section = 'active';
 
+  /** Split text into plain strings and emoji wrapped in styled spans. */
+  private _renderWithEmoji(text: string): (string | TemplateResult)[] {
+    const parts: (string | TemplateResult)[] = [];
+    const emojiRegex = /(\p{Extended_Pictographic})/gu;
+    let last = 0;
+    for (const m of text.matchAll(emojiRegex)) {
+      if (m.index! > last) parts.push(text.slice(last, m.index!));
+      parts.push(html`<span class="emoji">${m[0]}</span>`);
+      last = m.index! + m[0].length;
+    }
+    if (last < text.length) parts.push(text.slice(last));
+    return parts;
+  }
+
   render() {
     return html`
       <div class="project">
@@ -85,7 +103,7 @@ export class ProjectCard extends LitElement {
           ${this.name}
         </a>
         <span class="separator">▸</span>
-        <span class="description">${this.description}</span>
+        <span class="description">${this._renderWithEmoji(this.description)}</span>
         ${this.language ? html`<span class="language">${this.language}</span>` : ''}
       </div>
     `;

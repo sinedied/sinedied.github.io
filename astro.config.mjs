@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
+import rehypeEmojiSpan from './src/lib/rehype-emoji-span';
 
 export default defineConfig({
   site: 'https://sinedied.github.io',
@@ -16,6 +17,7 @@ export default defineConfig({
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: 'append', properties: { class: 'heading-anchor', ariaHidden: true, tabIndex: -1 }, content: { type: 'text', value: ' #' } }],
+      rehypeEmojiSpan,
     ],
     shikiConfig: {
       theme: 'github-dark-default',

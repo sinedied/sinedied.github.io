@@ -95,8 +95,12 @@ npm run dev
 ![A beautiful landscape from Lorem Picsum](https://picsum.photos/800/300)
 *A beautiful landscape from Lorem Picsum*
 
+## Emoji
+
+Here are some colorful emoji to test theme filtering: 🚀 🎉 🔥 ⭐ 💎 🌈 🎨 🦀 🐧 🍕 💚 🌍 ☕ 🏆 🤖
+
 ## Horizontal Rule
 
 ---
 
-That's it for now. More posts coming soon!
+That's it for now. More posts coming soon! 🎉

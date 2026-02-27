@@ -149,10 +149,18 @@
   background: rgba(0, 255, 65, 0.35);
 }
 
-/* ── Images, video & code blocks: monochrome green phosphor tint ── */
+/* ── Images, video, code blocks & emoji: monochrome green phosphor tint ── */
 [data-theme="green-phosphor"] img,
 [data-theme="green-phosphor"] .video-container,
 [data-theme="green-phosphor"] .prose pre {
+  filter: sepia(1) saturate(3) hue-rotate(80deg) brightness(0.8);
+}
+
+[data-theme="green-phosphor"] {
+  --emoji-filter: sepia(1) saturate(3) hue-rotate(80deg) brightness(0.8);
+}
+
+[data-theme="green-phosphor"] .emoji {
   filter: sepia(1) saturate(3) hue-rotate(80deg) brightness(0.8);
 }
 
