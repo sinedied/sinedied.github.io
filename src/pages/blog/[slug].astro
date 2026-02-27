@@ -51,6 +51,26 @@ const canonicalUrl = post.data.canonical_url;
           }, 100);
         });
       }
+
+      // Copy-to-clipboard buttons for code blocks
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.prose pre').forEach((pre) => {
+          const btn = document.createElement('button');
+          btn.className = 'copy-code-btn';
+          btn.textContent = 'Copy';
+          btn.addEventListener('click', async () => {
+            const code = pre.querySelector('code');
+            await navigator.clipboard.writeText(code?.textContent ?? '');
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 2000);
+          });
+          pre.appendChild(btn);
+        });
+      });
     </script>
   </Fragment>
 

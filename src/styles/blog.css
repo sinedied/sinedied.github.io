@@ -197,6 +197,39 @@
   font-size: var(--font-size-sm);
   line-height: 1.6;
   tab-size: 2;
+  position: relative;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 2px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+.prose pre:hover .copy-code-btn {
+  opacity: 1;
+}
+
+.copy-code-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.copy-code-btn.copied {
+  color: var(--term-accent);
+  border-color: var(--term-accent);
+  opacity: 1;
 }
 
 .prose pre code {
