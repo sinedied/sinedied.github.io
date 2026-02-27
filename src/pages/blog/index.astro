@@ -41,6 +41,7 @@ function formatDate(date: Date): string {
             title={post.data.title}
             href={`/blog/${getBlogSlug(post)}/`}
             tags={post.data.tags}
+            description={post.data.description}
             data-tags={post.data.tags.split(',').map((t: string) => t.trim().toLowerCase()).join(',')}
           />
         ))}

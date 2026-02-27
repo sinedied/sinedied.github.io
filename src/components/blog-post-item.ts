@@ -81,6 +81,7 @@ export class BlogPostItem extends LitElement {
   @property({ type: String }) title = '';
   @property({ type: String }) href = '';
   @property({ type: String }) tags = '';
+  @property({ type: String }) description = '';
 
   render() {
     const tagList = this.tags
@@ -90,7 +91,7 @@ export class BlogPostItem extends LitElement {
     return html`
       <div class="post">
         <span class="date">${this.date}</span>
-        <a class="title-link" href=${this.href}>${this.title}</a>
+        <a class="title-link" href=${this.href} title=${this.description || ''}>${this.title}</a>
         ${tagList.length > 0
           ? html`<span class="tags">${tagList.map((tag) => html`<a class="tag" href="/blog/?tag=${encodeURIComponent(tag)}">${tag}</a>`)}</span>`
           : ''}
