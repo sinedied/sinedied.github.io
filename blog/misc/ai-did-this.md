@@ -35,6 +35,6 @@ I can finally bring to life projects I could never justify spending time on. A f
 
 ## The paradox of more time
 
-The promise of AI, in a way, is more time to spend on meaningful things. But for me it's become something closer to an addiction. I finally get to build *all the stuff* I ever wanted but never had the time for. So I still have no free time. I'd even say it's the opposite. 😆
+The promise of AI, in a way, is more time to spend on meaningful things. But for me it's become something closer to an addiction. I finally get to build *all the stuff* I ever wanted but never had the time for. So I still don't have *more* free time. I'd even say it's the opposite. 😆
 
 But at least now I have my own place to write my blurbs. Welcome to my corner of the internet. And if you've not already tried it, the terminal prompt below hides some surprises...
