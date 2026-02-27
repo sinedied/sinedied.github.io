@@ -213,10 +213,13 @@ export class TerminalInput extends LitElement {
     }
   }
 
-  /** Reset IME state — needed on Android after clearing input */
+  /** Reset input and sync Android IME state */
   private _resetInput() {
     if (this._input) {
-      this._input.value = '';
+      // Select all text then delete via IME-aware API to sync Android's IME state
+      this._input.select();
+      this._input.setRangeText('', 0, this._input.value.length, 'start');
+      this._input.selectionStart = this._input.selectionEnd = 0;
       this._resizeInput();
     }
   }
