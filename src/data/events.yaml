@@ -4,31 +4,430 @@
 # Fields: date, conference, title, coSpeaker?, youtube?, slides?, workshop?
 # ═══════════════════════════════════════════════════════
 
+# --- 2026 ---
+
 - date: 2026-01-30
   conference: Azure Cosmos DB TV
   title: "From Burger to Bots: Agentic Apps with Cosmos DB and LangChain.js"
+  coSpeaker: Mark Brown
   youtube: https://www.youtube.com/watch?v=7faP1YPOFCA
+
+- date: 2026-01-16
+  conference: SnowCamp
+  title: "Et si votre prochain script… c’était un prompt ? Découvrez GenAIScript"
+  slides: https://sinedied.github.io/genaiscript-talk/long/
+  language: fr
+
+- date: 2026-01-14
+  conference: SnowCamp
+  title: "Agents IA, MCP et burgers avec LangChain.js"
+  coSpeaker: Philippe Didiergeorges
+  workshop: https://aka.ms/ws/mcp-agent
+
+# --- 2025 ---
 
 - date: 2025-12-10
   conference: OSS AI Summit
   title: "MCP in Action: Powering Single & Multi-Agent Systems with LangChain.js"
   youtube: https://www.youtube.com/watch?v=_n0KBjDYgqY
+  slides: https://github.com/microsoft/oss-ai-summit/blob/main/langchain/slides/agents-with-langchainjs.pptx
 
-- date: 2025-10-23
-  conference: LangChain Livestream
+- date: 2025-11-28
+  conference: DevFest Lyon
+  title: "Et si votre prochain script… c’était un prompt ? Découvrez GenAIScript!"
+  slides: https://sinedied.github.io/genaiscript-talk/long/
+  language: fr
+
+- date: 2025-10-22
+  conference: Microsoft Reactor
   title: "LangChain v1: What JS and Python developers need to know"
-  coSpeaker: Marlene
+  coSpeaker: Marlene Mhangami
   youtube: https://www.youtube.com/watch?v=slJlB-woA4Q
 
+- date: 2025-06-26
+  conference: Sunny Tech
+  title: "10 fonctionnalités utiles du web que vous ne connaissez pas"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=ig-O265BYiI
+  language: fr
 
 - date: 2025-05-12
   conference: Microsoft Reactor
   title: "Unleashing Serverless AI: Building Intelligent Apps with Azure"
+  coSpeaker: Richa Gaur
+  youtube: https://www.youtube.com/watch?v=pnZ-9pCFWhQ
 
 - date: 2025-04-16
-  conference: AI Agents Hackathon 2025
-  title: Automate tasks with JS & GenAIScript
+  conference: AI Agents Hack
+  title: "Prompting is the New Scripting: Meet GenAIScript"
+  youtube: https://www.youtube.com/watch?v=Aq30zfbWNSQ
 
-- date: 2025-03-27
-  conference: Microsoft Reactor
-  title: Building Generative AI Apps with JavaScript
+- date: 2025-04-03
+  conference: dotJS
+  title: "Prompting is the New Scripting: Meet GenAIScript"
+  youtube: https://www.youtube.com/watch?v=PrhPSUHXWJ4
+  slides: https://sinedied.github.io/genaiscript-talk/
+
+- date: 2025-02-06
+  conference: Touraine Tech
+  title: "10 fonctionnalités utiles du web que vous ne connaissez pas"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=wSLRBF_RNHQ
+  language: fr
+
+- date: 2025-01-23
+  conference: SnowCamp
+  title: "10 fonctionnalités utiles du web que vous ne connaissez pas"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+# --- 2024 ---
+
+- date: 2024-11-07
+  conference: DevDay
+  title: "10 fonctionnalités utiles du web que vous ne connaissez pas"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+- date: 2024-11-07
+  conference: DevDay
+  title: IA Generative, de votre machine locale à Azure avec LangChain.js
+  language: fr
+
+- date: 2024-11-07
+  conference: DevDay
+  title: AI goes wild
+  coSpeaker: Louis-Guillaume Morand, Philippe Didiergeorges, Julien Stebler
+  language: fr
+
+- date: 2024-10-22
+  conference: Microsoft AI Tour Paris
+  title: "Essential prompting for GitHub Copilot in VS Code"
+  slides: https://github.com/microsoft/aitour-Essential-Prompting-for-GitHub-Copilot-in-VS-Code/tree/main/session-delivery-resources
+
+- date: 2024-10-18
+  conference: DevFest Nantes
+  title: "Comprendre l'IA: construisez votre propre ChatGPT sécurisé avec Node.js et LangChain"
+  coSpeaker: Thomas Rannou
+  workshop: https://github.com/Azure-Samples/azure-openai-rag-workshop
+  language: fr
+
+- date: 2024-10-02
+  conference: Devoxx Morocco
+  title: "A l'aide, mon IA est débile! Comment évaluer et améliorer son IA générative"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+- date: 2024-07-05
+  conference: Sunny Tech
+  title: "Comprendre l'IA: construisez votre propre ChatGPT sécurisé avec Node.js et LangChain"
+  workshop: https://github.com/Azure-Samples/azure-openai-rag-workshop
+  language: fr
+
+- date: 2024-05-08
+  conference: Devoxx UK
+  title: "Understanding AI: build your own enterprise ChatGPT with Node.js and LangChain"
+  workshop: https://github.com/Azure-Samples/azure-openai-rag-workshop
+
+- date: 2024-04-18
+  conference: Devoxx France
+  title: "Comprendre l'IA: construisez votre propre ChatGPT sécurisé avec Node.js et LangChain"
+  workshop: https://github.com/Azure-Samples/azure-openai-rag-workshop
+  language: fr
+
+- date: 2024-04-17
+  conference: Devoxx France
+  title: "CSS renaît de ses cendres: (re)devenez copains avec votre feuille de style"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=cAikQZzKqB4
+  language: fr
+
+- date: 2024-03-13
+  conference: Microsoft AI Tour - Paris
+  title: "What’s new in Generative AI?"
+
+- date: 2024-03-06
+  conference: Azure Developers JavaScript Day
+  title: "LangChain.js + Azure: A Generative AI App Journey"
+  youtube: https://www.youtube.com/watch?v=nYXSKs8qMY8
+
+- date: 2024-02-08
+  conference: Touraine Tech
+  title: "CSS renaît de ses cendres: (re)devenez copains avec votre feuille de style"
+  youtube: https://www.youtube.com/watch?v=izb3IYEOvzQ
+  language: fr
+
+- date: 2024-01-31
+  conference: SnowCamp
+  title: "Le développement augmenté à l'IA: tout ce qui va changer"
+  slides: https://sinedied.github.io/talks/ai-for-dev/
+  language: fr
+
+- date: 2024-01-31
+  conference: SnowCamp
+  title: "Comprendre l'IA: construisez votre propre ChatGPT sécurisé avec Node.js et LangChain"
+  workshop: https://github.com/Azure-Samples/azure-openai-rag-workshop
+  language: fr
+
+# --- 2023 ---
+
+- date: 2023-10-19
+  conference: DevFest Nantes
+  title: "CSS renaît de ses cendres: (re)devenez copains avec votre feuille de style"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=jCk0cyjexNU&list=PLuZ_sYdawLiUHU4E1i5RrFsRN_lQcgPwT&index=15
+  language: fr
+
+- date: 2023-10-11
+  conference: Devoxx Morocco
+  title: "CSS renaît de ses cendres: (re)devenez copains avec votre feuille de style"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+- date: 2023-10-11
+  conference: Devoxx Morocco
+  title: "Le développement augmenté à l'IA: tout ce qui va changer"
+  language: fr
+  slides: https://sinedied.github.io/talks/ai-for-dev/
+
+- date: 2023-06-15
+  conference: Le Camping des Speakers
+  title: "Dis papa, c'est quoi l'impression 3D?"
+  coSpeaker: Wassim Chegham
+  language: fr
+
+- date: 2023-06-15
+  conference: Le Camping des Speakers
+  title: "Créer des objets 3D avec du code, grâce à OpenSCAD"
+  slides: https://sinedied.github.io/talks/openscad/index.html
+  language: fr
+
+- date: 2023-04-12
+  conference: Devoxx France
+  title: "Quarkus, Micronaut and Spring Boot fighting in the Cloud"
+  coSpeaker: Julien Dubois, Antonio Goncalves
+  workshop: https://github.com/Azure/aca-java-runtimes-workshop/
+
+- date: 2023-01-25
+  conference: SnowCamp
+  title: "Les microservices en pratique avec Node.js, Docker et Azure"
+  coSpeaker: Christopher Maneu
+  workshop: https://github.com/Azure-Samples/nodejs-microservices
+
+# --- 2022 ---
+
+- date: 2022-12-02
+  conference: DevFest Dijon
+  title: "Une touche de chaos pour plus d'efficacité"
+  slides: https://sinedied.github.io/talks/chaos/
+  language: fr
+
+- date: 2022-12-02
+  conference: DevFest Dijon
+  title: "J'ai plié mon smartphone et il ne s'est pas cassé... mais ma web app si :("
+  language: fr
+  slides: https://speakerdeck.com/sinedied/multi-screen-experiences-for-the-mobile-web
+
+- date: 2022-11-24
+  conference: Agile Grenoble
+  title: "Une touche de chaos pour plus d'efficacité"
+  slides: https://sinedied.github.io/talks/chaos/
+  language: fr
+
+- date: 2022-10-10
+  conference: Devoxx Belgium
+  title: "Create multi-screen experiences for the new mobile web"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=mUW80_Bo_io
+  slides: https://speakerdeck.com/sinedied/multi-screen-experiences-for-the-mobile-web
+
+- date: 2022-10-10
+  conference: Devoxx Belgium
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+  youtube: https://www.youtube.com/watch?v=gxAWT-8-nvs
+
+- date: 2022-10-10
+  conference: Devoxx Belgium
+  title: "Quarkus, Micronaut and Spring Boot fighting in the Cloud"
+  coSpeaker: Julien Dubois, Antonio Goncalves
+  workshop: https://github.com/Azure/aca-java-runtimes-workshop/
+
+- date: 2022-06-30
+  conference: Sunny Tech
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+
+- date: 2022-06-21
+  conference: VoxxedDays Luxembourg
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+  youtube: https://www.youtube.com/watch?v=DTquL9grGD8
+  language: fr
+
+- date: 2022-06-09
+  conference: Le Camping des Speakers
+  title: "J'ai plié mon smartphone et il ne s'est pas cassé... mais ma web app si 🙁"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+- date: 2022-06-09
+  conference: Le Camping des Speakers
+  title: "Les 5 choses que j'aurais aimé savoir plus tôt dans ma carrière"
+  language: fr
+
+- date: 2022-02-02
+  conference: SnowCamp
+  title: "Développez et déployez votre application web fullstack avec Azure Static Web Apps et GitHub Actions"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+# --- 2021 ---
+
+- date: 2021-11-23
+  conference: DevDay
+  title: "Create multi-screen experiences for the new mobile web"
+  coSpeaker: Olivier Leplus
+  slides: https://speakerdeck.com/sinedied/multi-screen-experiences-for-the-mobile-web
+
+- date: 2021-11-18
+  conference: Codeurs en Seine
+  title: "J'ai plié mon smartphone et il ne s'est pas cassé... mais mon app si 🙁​"
+  youtube: https://www.youtube.com/watch?v=3sxGXYEhd0k
+  language: fr
+
+- date: 2021-11-09
+  conference: DevFest Strasbourg
+  title: "Building multi-screen experiences for the web"
+  slides: https://speakerdeck.com/sinedied/multi-screen-experiences-for-the-mobile-web
+  youtube: https://www.youtube.com/watch?v=_sPECLpf23M
+  language: fr
+
+- date: 2021-11-09
+  conference: DevFest Strasbourg
+  title: "Build, deploy and audit a serverless PWA with Angular and Azure Static Web Apps"
+  coSpeaker: Olivier Leplus
+
+- date: 2021-10-21
+  conference: DevFest Nantes
+  title: "Highly available, distributed & resilient software... team"
+  youtube: https://www.youtube.com/watch?v=x3sQu31jGu4
+  slides: https://sinedied.github.io/talks/async-work/
+  language: fr
+
+- date: 2021-10-21
+  conference: DevFest Nantes
+  title: "Développer des applis web pour les foldable devices"
+  coSpeaker: Olivier Leplus
+  language: fr
+  youtube: https://www.youtube.com/watch?v=p47z7rgRghQ
+
+- date: 2021-10-08
+  conference: Cloud Nord
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+  youtube: https://www.youtube.com/watch?v=g6ItbLBRU4c
+  language: fr
+
+- date: 2021-10-07
+  conference: Open Source India
+  title: "How to become an OSS contributor"
+  slides: https://sinedied.github.io/talks/contribute-oss/
+
+- date: 2021-07-02
+  conference: Riviera Dev
+  title: "Les web apps multi écran, c'est pas sec... mais on s'est jeté à l'eau"
+  coSpeaker: Olivier Leplus
+  language: fr
+
+- date: 2021-06-03
+  conference: Paris Container Day
+  title: "A clean dev env, working everytime, everywhere"
+  slides: https://sinedied.github.io/talks/clean-dev-env/
+
+- date: 2021-03-11
+  conference: The Cloud First
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+  youtube: https://www.youtube.com/watch?v=OGFkz81mKf8&t=7382s
+
+- date: 2021-01-27
+  conference: VS Code Day
+  title: "A clean dev env, working everytime, everywhere"
+  youtube: https://www.youtube.com/watch?v=NNrq2641zTA&list=PLj6YeMhvp2S6uB23beQaffszlavLq3lNq&index=5
+  slides: https://speakerdeck.com/sinedied/a-clean-dev-env-working-every-time-everywhere
+
+# --- 2020 ---
+
+- date: 2020-11-27
+  conference: Everywhere Event
+  title: "A fairer web for everyone with Progressive Web Apps"
+  slides: https://sinedied.github.io/talks/pwa/
+
+- date: 2020-11-24
+  conference: Agile Grenoble
+  title: "Highly available, distributed & resilient software... team"
+  slides: https://sinedied.github.io/talks/async-work/
+
+- date: 2020-11-23
+  conference: Update Conference Prague
+  title: "Progressive Web Apps: Beyond the Buzzword"
+  slides: https://speakerdeck.com/sinedied/progressive-web-apps-beyond-the-buzzword
+
+- date: 2020-06-18
+  conference: CloudOuest
+  title: "Envoyez la Nitro: construisez une API serverless avec Nest.js à toute vitesse!"
+  language: fr
+
+- date: 2020-02-24
+  conference: Microsoft Ignite Prague
+  title: Storing Data in Azure
+
+- date: 2020-02-24
+  conference: Microsoft Ignite Prague
+  title: Discovering Azure Tooling and Utilities
+
+- date: 2020-02-14
+  conference: DevFest Paris
+  title: "Envoyez la Nitro: construisez une API serverless avec Nest.js à toute vitesse!"
+  coSpeaker: Olivier Leplus
+  workshop: https://nitro-stack.github.io/nitro-workshop/
+  language: fr
+
+- date: 2020-01-22
+  conference: SnowCamp
+  title: "Envoyez la Nitro: construisez une API serverless avec Nest.js à toute vitesse!"
+  coSpeaker: Olivier Leplus
+  workshop: https://nitro-stack.github.io/nitro-workshop/
+  language: fr
+
+# --- 2019 ---
+
+- date: 2019-11-12
+  conference: Agile Grenoble
+  title: The Fast And the Furious Developer
+  slides: https://sinedied.github.io/talks/fast-furious-dev/
+
+- date: 2019-11-06
+  conference: DevFest Strasbourg
+  title: "La révolution dans vos apps, c'est la gestion de l'état"
+  language: fr
+  slides: https://sinedied.github.io/talks/state-management/
+
+- date: 2019-05-15
+  conference: Riviera Dev
+  title: "La révolution dans vos apps, c'est la gestion de l'état"
+  language: fr
+  slides: https://speakerdeck.com/sinedied/the-revolution-in-your-apps-is-called-state-management-33edcfe0-5080-44f1-9235-ff69930a81e5
+
+- date: 2019-01-23
+  conference: SnowCamp
+  title: "La révolution dans vos apps, c'est la gestion de l'état"
+  language: fr
+  slides: https://speakerdeck.com/sinedied/the-revolution-in-your-apps-is-called-state-management
+
+# --- 2017 ---
+
+- date: 2017-10-26
+  conference: SoftShake
+  title: "Better, faster, starter: make (many) enterprise apps with Angular"
