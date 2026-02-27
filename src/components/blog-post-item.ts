@@ -66,6 +66,14 @@ export class BlogPostItem extends LitElement {
       border: 1px solid var(--term-border, #333);
       padding: 1px 6px;
       border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tag:hover {
+      color: var(--term-accent, #0f0);
+      border-color: var(--term-accent, #0f0);
     }
   `;
 
@@ -84,7 +92,7 @@ export class BlogPostItem extends LitElement {
         <span class="date">${this.date}</span>
         <a class="title-link" href=${this.href}>${this.title}</a>
         ${tagList.length > 0
-          ? html`<span class="tags">${tagList.map((tag) => html`<span class="tag">${tag}</span>`)}</span>`
+          ? html`<span class="tags">${tagList.map((tag) => html`<a class="tag" href="/blog/?tag=${encodeURIComponent(tag)}">${tag}</a>`)}</span>`
           : ''}
       </div>
     `;

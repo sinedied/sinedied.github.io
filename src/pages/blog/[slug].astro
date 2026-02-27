@@ -89,7 +89,7 @@ const canonicalUrl = post.data.canonical_url;
             <span class="post-tags">
               <span class="meta-sep">·</span>
               {tags.map((tag: string) => (
-                <span class="post-tag">{tag}</span>
+                <a class="post-tag" href={`/blog/?tag=${encodeURIComponent(tag)}`}>{tag}</a>
               ))}
             </span>
           )}
@@ -151,6 +151,14 @@ const canonicalUrl = post.data.canonical_url;
     border: 1px solid var(--term-border);
     padding: 0 6px;
     border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .post-tag:hover {
+    color: var(--term-accent);
+    border-color: var(--term-accent);
   }
 
   .post-tags {
