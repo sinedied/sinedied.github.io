@@ -217,12 +217,7 @@ export class TerminalInput extends LitElement {
   private _resetInput() {
     if (this._input) {
       this._input.value = '';
-      this._input.style.width = '1ch';
-      this._input.classList.add('empty');
-      // Blur/focus cycle resets Android IME state
-      // setTimeout needed so the blur actually completes before refocus
-      this._input.blur();
-      setTimeout(() => this._input?.focus(), 0);
+      this._resizeInput();
     }
   }
 
