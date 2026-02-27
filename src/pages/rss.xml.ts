@@ -19,6 +19,5 @@ export async function GET(context: APIContext) {
       link: `/blog/${getBlogSlug(post)}/`,
     })),
     customData: '<language>en-us</language>',
-    stylesheet: '/rss/styles.xsl',
   });
 }

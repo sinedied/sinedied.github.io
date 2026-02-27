@@ -18,7 +18,10 @@ function formatDate(date: Date): string {
 
 <BaseLayout title="Blog — Yohan Lasorsa" description="Blog posts by Yohan Lasorsa about JavaScript, AI, Cloud, and Open Source.">
   <div class="blog-content fade-in fade-in--delay-3">
-    <div class="section-header">Blog</div>
+    <div class="section-header-wrapper">
+      <div class="section-header">Blog</div>
+      <a href="/rss.xml" class="rss-link" target="_blank" rel="noopener noreferrer" title="RSS Feed">⟨rss/⟩</a>
+    </div>
 
     <div id="tag-filter" class="tag-filter" style="display:none;">
       <span class="text-dim">Filtered by tag:</span>
@@ -65,10 +68,10 @@ function formatDate(date: Date): string {
     items.forEach((item) => {
       const tags = (item.getAttribute('data-tags') || '').split(',');
       if (tags.includes(tag.toLowerCase())) {
-        (item as HTMLElement).style.display = '';
+        item.style.display = '';
         visible++;
       } else {
-        (item as HTMLElement).style.display = 'none';
+        item.style.display = 'none';
       }
     });
 
@@ -110,6 +113,29 @@ function formatDate(date: Date): string {
   }
 
   .tag-clear:hover {
+    color: var(--term-accent);
+  }
+
+  .section-header-wrapper {
+    position: relative;
+  }
+
+  .section-header-wrapper .section-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .rss-link {
+    position: absolute;
+    right: 0;
+    top: 0.4em;
+    font-size: var(--font-size-sm, 0.85rem);
+    color: var(--term-dim);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .rss-link:hover {
     color: var(--term-accent);
   }
 </style>
