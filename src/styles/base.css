@@ -25,7 +25,7 @@ body {
   line-height: 1.6;
   color: var(--term-fg);
   background-color: var(--term-bg);
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
