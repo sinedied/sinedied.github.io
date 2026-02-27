@@ -214,11 +214,6 @@ export class TerminalInput extends LitElement {
         this._input.value = '';
       }
       this._resizeInput();
-    } else if (e.key === 'l' && e.ctrlKey) {
-      // Ctrl+L — clear output
-      e.preventDefault();
-      this._output = '';
-      this._hasError = false;
     }
   }
 
