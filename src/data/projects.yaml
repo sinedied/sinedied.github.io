@@ -35,8 +35,10 @@ misc:
   - sinedied/svelte-web-components-template
   - sinedied/swag-demo
   - sinedied/comic-tools
+  - microsoft/moaw
 
 legacy:
+  - ngx-rocket/generator-ngx-rocket
   - sinedied/hadra-trance-festival
   - sinedied/surface-duo-photo-gallery
   - sinedied/ngx-foldable
@@ -48,3 +50,5 @@ legacy:
   - sinedied/ng-lite-starter
   - sinedied/cxa-track
   - sinedied/catfacts
+  - angular-starter-kit/generator-angular-pro
+  - angular-starter-kit/starter-kit
