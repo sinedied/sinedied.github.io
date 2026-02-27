@@ -160,7 +160,6 @@
   color: var(--term-bg);
   font-weight: 700;
 }
-}
 
 /* ── Blockquotes ────────────────────────────────────── */
 .prose blockquote {
@@ -263,7 +262,7 @@
 .prose hr {
   border: none;
   border-top: 1px solid var(--term-border);
-  margin: var(--space-xl) 0;
+  margin: var(--space-lg) 0;
 }
 
 /* ── Tables (GFM) ───────────────────────────────────── */
