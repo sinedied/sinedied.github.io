@@ -38,6 +38,7 @@ export class ProjectCard extends LitElement {
 
     .star-icon {
       color: var(--term-warning, #cc0);
+      font-size: 1.1em;
     }
 
     .name {
