@@ -36,10 +36,22 @@
 
 .prose h3 { font-size: var(--font-size-md); }
 
-.prose h4 { font-size: var(--font-size-sm); }
+.prose h4 {
+  font-size: var(--font-size-sm);
+  color: var(--term-fg);
+}
 
-.prose h5,
-.prose h6 { font-size: var(--font-size-xs); }
+.prose h5 {
+  font-size: var(--font-size-sm);
+  color: var(--term-fg);
+  font-style: italic;
+}
+
+.prose h6 {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--term-dim);
+}
 
 /* First heading after header — reduce top margin */
 .prose > .post-header + h2 {
@@ -158,7 +170,16 @@
   height: auto;
   border: 1px solid var(--term-border);
   border-radius: 4px;
-  margin: var(--space-md) 0;
+  margin: var(--space-md) 0 0;
+}
+
+/* Image caption — italic text after an image in the same paragraph */
+.prose p > img + em {
+  display: block;
+  color: var(--term-dim);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
 }
 
 /* ── Horizontal Rules ───────────────────────────────── */
