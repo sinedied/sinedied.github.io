@@ -138,7 +138,7 @@
 
 /* ── Code blocks (Shiki) ────────────────────────────── */
 .prose pre {
-  background: var(--term-surface) !important;
+  background: #0d1117 !important;
   border: 1px solid var(--term-border);
   border-radius: 4px;
   padding: var(--space-md);
@@ -147,22 +147,6 @@
   font-size: var(--font-size-sm);
   line-height: 1.6;
   tab-size: 2;
-}
-
-/* Shiki dual-theme: map CSS variables to the active light/dark mode.
-   The terminal themes are all dark except modern-minimal-light. */
-html[data-theme="modern-minimal-light"] .prose pre span {
-  color: var(--shiki-light) !important;
-  font-style: var(--shiki-light-font-style) !important;
-  font-weight: var(--shiki-light-font-weight) !important;
-  text-decoration: var(--shiki-light-text-decoration) !important;
-}
-
-html:not([data-theme="modern-minimal-light"]) .prose pre span {
-  color: var(--shiki-dark) !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 .prose pre code {

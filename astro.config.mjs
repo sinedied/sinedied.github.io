@@ -10,11 +10,7 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkGfm],
     shikiConfig: {
-      themes: {
-        light: 'vitesse-light',
-        dark: 'vitesse-dark',
-      },
-      defaultColor: false,
+      theme: 'github-dark-default',
     },
   },
   vite: {
