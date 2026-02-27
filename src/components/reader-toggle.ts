@@ -95,8 +95,8 @@ export class ReaderToggle extends LitElement {
         @click=${this._toggle}
         title=${this.active ? 'Switch to terminal mode' : 'Switch to reader mode'}
       >
-        <span class="icon">${this.active ? '📖' : '⌨'}</span>
-        <span>${this.active ? 'reader' : 'terminal'}</span>
+        <span class="icon">📖</span>
+        <span>reader</span>
       </button>
     `;
   }
