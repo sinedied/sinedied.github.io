@@ -92,6 +92,28 @@ The footer contains an interactive terminal input (`src/components/terminal-inpu
 - CRT shutdown/reboot animations are defined in `src/styles/animations.css` (`crtOff` keyframes, `.crt-shutdown` class)
 - The reboot command synthesizes a Mac-like boot chime via the Web Audio API before replaying the CRT power-on animation
 
+## Lit Component Pre-Hydration State Pattern
+
+Lit components rendered via Astro SSR are server-rendered first, then hydrated on the client. Any state that depends on browser APIs (e.g. `localStorage`) cannot be known during SSR, so the SSR output may show the wrong visual state (e.g. a toggle button appearing active when the user disabled it). To prevent this flash of incorrect state, all stateful Lit components must follow this pattern:
+
+1. **Blocking `<head>` script** — A `<script is:inline>` in `BaseLayout.astro` reads `localStorage` and sets a data attribute on `<html>` (e.g. `data-theme`, `data-reader-mode`) before first paint.
+
+2. **CSS custom properties on `<html>`** — In BaseLayout's `<style>`, define CSS custom properties conditioned on the data attribute (e.g. `html[data-reader-mode] { --rt-active-color: var(--term-accent); }`). These inherit through Shadow DOM.
+
+3. **Pre-hydration styling in the component** — Use `:host(:not([ready]))` selectors in the component's `static styles` to suppress the component's own state-driven styles (e.g. `aria-pressed` or `.active` class) and instead consume the inherited CSS custom properties. This makes the SSR output reflect the correct visual state from the `<html>` data attribute.
+
+4. **`firstUpdated()` reads state from the DOM** — In `firstUpdated()` (which runs only client-side during hydration), read the actual state from the DOM attribute set by the blocking script and/or `localStorage`. Set the component's internal state accordingly (use `@state()`, not `@property({ reflect: true })` to avoid SSR reflecting a wrong default).
+
+5. **Set `[ready]` attribute** — At the end of `firstUpdated()`, call `this.setAttribute('ready', '')`. This deactivates the `:host(:not([ready]))` rules and lets the component's normal state-driven styles take over.
+
+**Key rules:**
+- Use `@state()` (not `@property({ reflect: true })`) for persisted state to avoid SSR baking wrong defaults into the HTML
+- Never use browser APIs (`localStorage`, `window`, `document`) in constructors or property initializers
+- `connectedCallback()` runs during SSR — guard any browser API access there, or move logic to `firstUpdated()`
+- Do NOT use `::part()` from Astro scoped styles to target components rendered in different Astro files — Astro scopes `<style>` blocks per component; use inherited CSS custom properties instead
+
+**Reference implementations:** `theme-switcher.ts` (multi-button selection) and `reader-toggle.ts` (boolean toggle).
+
 ## Maintaining AGENTS.md
 
 - **This file must be kept up to date.** All architectural decisions and important changes (new conventions, added/removed dependencies, structural refactors, new constraints) must be reflected here.

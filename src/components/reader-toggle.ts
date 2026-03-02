@@ -1,9 +1,14 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 
 /**
  * Reader mode toggle — disables CRT effects and switches to a
  * reading-friendly font. Only used on blog post pages.
+ *
+ * Pre-hydration state is driven by CSS custom properties inherited from
+ * html[data-reader-mode] (set by a blocking <head> script). The component
+ * suppresses its own aria-pressed styling until [ready] is set in
+ * firstUpdated(), at which point the correct state is known from the DOM.
  */
 @customElement('reader-toggle')
 export class ReaderToggle extends LitElement {
@@ -38,6 +43,18 @@ export class ReaderToggle extends LitElement {
       border-color: var(--term-accent, #0f0);
     }
 
+    /* Before hydration: suppress internal aria-pressed styling and use
+       inherited CSS custom properties from html[data-reader-mode] instead.
+       --rt-active-color / --rt-active-border are set in BaseLayout. */
+    :host(:not([ready])) .toggle {
+      color: var(--rt-active-color, var(--term-dim, #555));
+      border-color: var(--rt-active-border, var(--term-border, #333));
+    }
+    :host(:not([ready])) .toggle[aria-pressed="true"] {
+      color: var(--rt-active-color, var(--term-dim, #555));
+      border-color: var(--rt-active-border, var(--term-border, #333));
+    }
+
     .toggle:focus-visible {
       outline: 2px solid var(--term-accent, #0f0);
       outline-offset: 1px;
@@ -50,33 +67,31 @@ export class ReaderToggle extends LitElement {
     }
   `;
 
-  @property({ type: Boolean, reflect: true }) active = true;
+  @state() active = true;
 
   connectedCallback() {
     super.connectedCallback();
-    if (typeof localStorage !== 'undefined') {
-      const stored = localStorage.getItem('reader-mode');
-      this.active = stored !== null ? stored !== 'false' : true;
-    }
-    this._apply();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    if (typeof document !== 'undefined') {
-      document.documentElement.removeAttribute('data-reader-mode');
-    }
+    document.documentElement.removeAttribute('data-reader-mode');
   }
 
-  protected firstUpdated() {
+  firstUpdated() {
+    // Read state from the DOM attribute (already set by the blocking <head> script)
+    const hasReaderMode = document.documentElement.hasAttribute('data-reader-mode');
+    const stored = localStorage.getItem('reader-mode');
+    // If stored preference exists, use it; otherwise default on for blog pages
+    this.active = stored !== null ? stored !== 'false' : hasReaderMode;
     this._apply();
+    // Reveal the button now that the correct state is known
+    this.setAttribute('ready', '');
   }
 
   private _toggle() {
     this.active = !this.active;
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('reader-mode', String(this.active));
-    }
+    localStorage.setItem('reader-mode', String(this.active));
     this._apply();
   }
 

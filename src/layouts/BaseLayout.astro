@@ -203,4 +203,14 @@ const termPath = pathMap[currentPath] || (currentPath.startsWith('/blog/') ? '~/
     font-size: var(--font-size-sm);
     flex-shrink: 0;
   }
+
+  /*
+   * Pre-hydration reader-toggle styling — CSS custom properties inherited
+   * into Shadow DOM. When data-reader-mode is set (by blocking <head> script),
+   * the button appears active. Otherwise it appears inactive.
+   */
+  html[data-reader-mode] {
+    --rt-active-color: var(--term-accent, #0f0);
+    --rt-active-border: var(--term-accent, #0f0);
+  }
 </style>
