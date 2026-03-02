@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
@@ -90,6 +90,10 @@ export class EventItem extends LitElement {
       color: var(--term-dim, #555);
       margin-left: 0.15rem;
     }
+
+    .emoji {
+      filter: var(--emoji-filter, none);
+    }
   `;
 
   @property({ type: String }) date = '';
@@ -101,14 +105,28 @@ export class EventItem extends LitElement {
   @property({ type: String }) workshop = '';
   @property({ type: String }) language = '';
 
+  /** Wrap emoji characters in styled spans for theme filtering. */
+  private _renderWithEmoji(text: string): (string | TemplateResult)[] {
+    const parts: (string | TemplateResult)[] = [];
+    const emojiRegex = /(\p{Extended_Pictographic})/gu;
+    let last = 0;
+    for (const m of text.matchAll(emojiRegex)) {
+      if (m.index! > last) parts.push(text.slice(last, m.index!));
+      parts.push(html`<span class="emoji">${m[0]}</span>`);
+      last = m.index! + m[0].length;
+    }
+    if (last < text.length) parts.push(text.slice(last));
+    return parts;
+  }
+
   render() {
     return html`
       <div class="event">
         <span class="date">${this.date}</span>
         <span class="conference">${this.conference}</span>
         <span class="separator">▸</span>
-        <span class="title">${this.title}</span>
-        ${this.language === 'fr' ? html`<span class="lang">🇫🇷</span>` : ''}
+        <span class="title">${this._renderWithEmoji(this.title)}</span>
+        ${this.language === 'fr' ? html`<span class="lang"><span class="emoji">🇫🇷</span></span>` : ''}
         ${this.coSpeaker ? html`<span class="co-speaker">${this.coSpeaker}</span>` : ''}
         ${this.youtube || this.slides || this.workshop ? html`
           <span class="links">
