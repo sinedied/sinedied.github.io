@@ -36,6 +36,7 @@ misc:
   - sinedied/swag-demo
   - sinedied/comic-tools
   - microsoft/moaw
+  - sinedied/working-with-ai
 
 legacy:
   - ngx-rocket/generator-ngx-rocket
