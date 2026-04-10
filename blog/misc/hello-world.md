@@ -1,5 +1,5 @@
 ---
-title: Hello World — First Blog Post
+title: Hello world — first blog post
 published: false
 description: 'Welcome to my blog! This is a test post to verify the blog setup with GFM markdown and syntax highlighting.'
 tags: 'webdev, meta, test'
