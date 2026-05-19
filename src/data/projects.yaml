@@ -6,7 +6,7 @@
 
 featured:
   - sinedied/sympakt
-  - sinedied/kanbrawl
+  - sinedied/a-team
   - sinedied/imapforward
   - sinedied/backslide
   - sinedied/dmx-hue
@@ -37,7 +37,9 @@ misc:
   - sinedied/swag-demo
   - sinedied/comic-tools
   - microsoft/moaw
+  - sinedied/cawpilot
   - sinedied/working-with-ai
+  - sinedied/kanbrawl
 
 legacy:
   - ngx-rocket/generator-ngx-rocket
