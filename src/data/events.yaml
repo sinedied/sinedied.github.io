@@ -6,6 +6,19 @@
 
 # --- 2026 ---
 
+- date: 2026-04-24
+  conference: Devoxx France
+  title: "APIs, contextes et prompts : la nouvelle stack du développeur web"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=yVadIKUZmSA
+  language: fr
+
+- date: 2026-04-08
+  conference: AI Engineer Europe
+  title: "AI Didn't Kill the Web, It Moved in!"
+  coSpeaker: Olivier Leplus
+  youtube: https://www.youtube.com/watch?v=XZ0boOjtbNo
+
 - date: 2026-03-11
   conference: Microsoft AI Tour Paris
   title: "Advanced Retrieval for your AI Apps and Agents on Azure"
