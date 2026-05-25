@@ -6,6 +6,11 @@
 
 # --- 2026 ---
 
+- date: 2026-04-28
+  conference: Azure Cosmos DB Conf
+  title: "Beyond Vector Search: What RAG Actually Needs"
+  youtube: https://www.youtube.com/watch?v=nqaUuSoB6I0
+
 - date: 2026-04-24
   conference: Devoxx France
   title: "APIs, contextes et prompts : la nouvelle stack du développeur web"
