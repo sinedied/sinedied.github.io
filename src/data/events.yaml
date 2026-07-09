@@ -6,6 +6,12 @@
 
 # --- 2026 ---
 
+- date: 2026-06-02
+  conference: Microsoft Build
+  title: "Build fast, not fragile with Rayfin and Microsoft Fabric"
+  youtube: https://www.youtube.com/watch?v=KQJvzNfJHzk
+  slides: https://github.com/microsoft/Build26-OD810-build-fast-not-fragile-with-rayfin-on-microsoft-fabric
+
 - date: 2026-04-28
   conference: Azure Cosmos DB Conf
   title: "Beyond Vector Search: What RAG Actually Needs"
